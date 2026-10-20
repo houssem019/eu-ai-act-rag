@@ -1,0 +1,458 @@
+# Curated evaluation set for the EU AI Act assistant.
+#
+# gold: citation units (as produced by aiact.corpus.parse) that contain the answer. Retrieval is a hit if it
+#   returns ANY gold unit (recall@k); answers are scored on whether they cite a gold unit.
+# answerable: false -> the assistant must decline (off-topic, other laws, or facts the Act does not contain).
+# reference: short ground-truth answer used for answer-correctness / faithfulness scoring.
+# Every gold citation was checked against the Official Journal text when this file was written.
+
+# ---------------------------------------------------------------- definitions
+- id: d01
+  category: definitions
+  question: How does the AI Act define an "AI system"?
+  answerable: true
+  gold: ["Article 3(1)"]
+  reference: A machine-based system designed to operate with varying levels of autonomy, that may exhibit adaptiveness after deployment and, for explicit or implicit objectives, infers from its input how to generate outputs such as predictions, content, recommendations or decisions that can influence physical or virtual environments.
+
+- id: d02
+  category: definitions
+  question: Who counts as a "deployer" under the regulation?
+  answerable: true
+  gold: ["Article 3(4)"]
+  reference: A natural or legal person, public authority, agency or other body using an AI system under its authority, except where the AI system is used in the course of a personal non-professional activity.
+
+- id: d03
+  category: definitions
+  question: What is a deep fake according to the AI Act?
+  answerable: true
+  gold: ["Article 3(60)"]
+  reference: AI-generated or manipulated image, audio or video content that resembles existing persons, objects, places, entities or events and would falsely appear to a person to be authentic or truthful.
+
+- id: d04
+  category: definitions
+  question: What counts as a "serious incident"?
+  answerable: true
+  gold: ["Article 3(49)"]
+  reference: An incident or malfunctioning of an AI system that directly or indirectly leads to the death of a person or serious harm to health, a serious and irreversible disruption of critical infrastructure, an infringement of obligations under Union law protecting fundamental rights, or serious harm to property or the environment.
+
+- id: d05
+  category: definitions
+  question: What is a general-purpose AI model?
+  answerable: true
+  gold: ["Article 3(63)"]
+  reference: An AI model, including one trained with a large amount of data using self-supervision at scale, that displays significant generality and can competently perform a wide range of distinct tasks regardless of how it is placed on the market, and that can be integrated into a variety of downstream systems or applications (excluding models used only for research, development or prototyping before being placed on the market).
+
+- id: d06
+  category: definitions
+  question: What is a "substantial modification" of an AI system?
+  answerable: true
+  gold: ["Article 3(23)"]
+  reference: A change to an AI system after it is placed on the market or put into service that was not foreseen or planned in the initial conformity assessment and that affects its compliance with the high-risk requirements or modifies its intended purpose.
+
+# ---------------------------------------------------------------- prohibited practices
+- id: p01
+  category: prohibited
+  question: Which AI practices are prohibited by the AI Act?
+  answerable: true
+  gold: ["Article 5(1)"]
+  reference: Article 5(1) bans manipulative or deceptive subliminal techniques, exploiting vulnerabilities, social scoring, predicting criminal offences based solely on profiling, untargeted scraping of facial images to build recognition databases, emotion recognition in workplaces and education (except medical or safety reasons), biometric categorisation to infer sensitive characteristics, and real-time remote biometric identification in public spaces for law enforcement except in narrowly defined cases.
+
+- id: p02
+  category: prohibited
+  question: Is AI-based social scoring of people allowed?
+  answerable: true
+  gold: ["Article 5(1)"]
+  reference: No. Evaluating or classifying people over time based on their social behaviour or personal characteristics, where the social score leads to detrimental or unfavourable treatment in unrelated contexts or that is unjustified or disproportionate, is prohibited (Article 5(1)(c)).
+
+- id: p03
+  category: prohibited
+  question: Can an employer use AI to recognise the emotions of its employees at work?
+  answerable: true
+  gold: ["Article 5(1)"]
+  reference: No. Emotion recognition systems in the workplace and in education institutions are prohibited, except where intended for medical or safety reasons (Article 5(1)(f)).
+
+- id: p04
+  category: prohibited
+  question: Under what conditions may police use real-time remote biometric identification in publicly accessible spaces?
+  answerable: true
+  gold: ["Article 5(1)", "Article 5(2)", "Article 5(3)"]
+  reference: Only where strictly necessary for targeted search for specific victims (abduction, trafficking, sexual exploitation, missing persons), preventing a specific, substantial and imminent threat to life or a terrorist attack, or locating suspects of serious crimes listed in Annex II; only to confirm the identity of the targeted individual, with safeguards, and subject to prior authorisation by a judicial or independent administrative authority.
+
+- id: p05
+  category: prohibited
+  question: Does each use of real-time remote biometric identification by law enforcement need prior authorisation, and from whom?
+  answerable: true
+  gold: ["Article 5(3)"]
+  reference: Yes. Each use requires prior authorisation from a judicial authority or an independent administrative authority whose decision is binding, of the Member State where the use takes place; in duly justified urgency it can start without authorisation if authorisation is requested within 24 hours.
+
+# ---------------------------------------------------------------- scope
+- id: s01
+  category: scope
+  question: Does the AI Act apply to AI systems used exclusively for military or defence purposes?
+  answerable: true
+  gold: ["Article 2(3)"]
+  reference: No. It does not apply to AI systems placed on the market, put into service or used exclusively for military, defence or national security purposes.
+
+- id: s02
+  category: scope
+  question: Is AI developed solely for scientific research covered by the regulation?
+  answerable: true
+  gold: ["Article 2(6)"]
+  reference: No. AI systems or models, including their output, specifically developed and put into service for the sole purpose of scientific research and development are excluded.
+
+- id: s03
+  category: scope
+  question: Do the deployer obligations apply to someone using an AI tool for a purely personal, non-professional activity?
+  answerable: true
+  gold: ["Article 2(10)", "Article 3(4)"]
+  reference: No. The regulation does not apply to obligations of deployers who are natural persons using AI systems in the course of a purely personal non-professional activity.
+
+- id: s04
+  category: scope
+  question: Does the AI Act apply to a provider established outside the European Union?
+  answerable: true
+  gold: ["Article 2(1)"]
+  reference: Yes. It applies to providers placing AI systems or general-purpose AI models on the Union market irrespective of where they are established, and to third-country providers and deployers where the output of the AI system is used in the Union.
+
+- id: s05
+  category: scope
+  question: Are AI systems released under free and open-source licences exempt from the AI Act?
+  answerable: true
+  gold: ["Article 2(12)"]
+  reference: Generally yes, unless they are placed on the market or put into service as high-risk AI systems or as AI systems that fall under Article 5 (prohibited) or Article 50 (transparency).
+
+# ---------------------------------------------------------------- high-risk systems
+- id: h01
+  category: high_risk
+  question: When is an AI system classified as high-risk?
+  answerable: true
+  gold: ["Article 6(1)", "Article 6(2)"]
+  reference: When it is a safety component of, or itself, a product covered by the Union harmonisation legislation in Annex I that requires third-party conformity assessment (Article 6(1)), or when it falls under one of the use cases listed in Annex III (Article 6(2)).
+
+- id: h02
+  category: high_risk
+  question: Can an AI system listed in Annex III be considered not high-risk?
+  answerable: true
+  gold: ["Article 6(3)"]
+  reference: Yes, if it does not pose a significant risk of harm to health, safety or fundamental rights, e.g. it performs a narrow procedural task, improves the result of a previously completed human activity, detects decision-making patterns without replacing human assessment, or performs a preparatory task; but an Annex III system that performs profiling of natural persons is always high-risk.
+
+- id: h03
+  category: high_risk
+  question: Which areas are listed as high-risk use cases in Annex III?
+  answerable: true
+  gold: ["Annex III"]
+  reference: Biometrics; critical infrastructure; education and vocational training; employment and workers management; access to essential private and public services and benefits; law enforcement; migration, asylum and border control; and administration of justice and democratic processes.
+
+- id: h04
+  category: high_risk
+  question: Is an AI system used to evaluate people's creditworthiness considered high-risk?
+  answerable: true
+  gold: ["Annex III"]
+  reference: Yes. AI systems intended to evaluate the creditworthiness of natural persons or establish their credit score are listed in Annex III point 5(b), except systems used to detect financial fraud.
+
+- id: h05
+  category: high_risk
+  question: Is AI used to screen job applications and filter CVs a high-risk system?
+  answerable: true
+  gold: ["Annex III"]
+  reference: Yes. AI systems intended for recruitment or selection, in particular to place targeted job advertisements, analyse and filter job applications and evaluate candidates, are high-risk (Annex III point 4(a)).
+
+- id: h06
+  category: high_risk
+  question: What requirements apply to the training, validation and testing data of high-risk AI systems?
+  answerable: true
+  gold: ["Article 10(2)", "Article 10(3)"]
+  reference: Data sets must be subject to appropriate data governance practices (design choices, collection and origin, preparation, assumptions, bias examination and mitigation, identification of gaps) and be relevant, sufficiently representative, as free of errors and complete as possible, with appropriate statistical properties.
+
+- id: h07
+  category: high_risk
+  question: What record-keeping or logging capabilities must high-risk AI systems have?
+  answerable: true
+  gold: ["Article 12(1)", "Article 12(2)"]
+  reference: They must technically allow automatic recording of events (logs) over their lifetime, enabling traceability, e.g. identifying situations that may result in risks or substantial modifications, facilitating post-market monitoring, and monitoring their operation.
+
+- id: h08
+  category: high_risk
+  question: What does the AI Act require in terms of human oversight of high-risk AI systems?
+  answerable: true
+  gold: ["Article 14(1)", "Article 14(4)", "Article 14(3)"]
+  reference: High-risk systems must be designed so they can be effectively overseen by natural persons, who must be enabled to understand the system's capacities and limitations, remain aware of automation bias, correctly interpret output, decide not to use or override the output, and intervene or stop the system.
+
+- id: h09
+  category: high_risk
+  question: For remote biometric identification systems, how many people must verify an identification before the deployer acts on it?
+  answerable: true
+  gold: ["Article 14(5)"]
+  reference: At least two natural persons with the necessary competence, training and authority must separately verify and confirm the identification (with an exception for law enforcement, migration, border control or asylum where Union or national law considers it disproportionate).
+
+- id: h10
+  category: high_risk
+  question: Do providers of high-risk AI systems need a quality management system?
+  answerable: true
+  gold: ["Article 17(1)"]
+  reference: Yes. They must put in place a documented quality management system ensuring compliance, covering e.g. regulatory compliance strategy, design and development procedures, testing and validation, data management, risk management, post-market monitoring, incident reporting and accountability.
+
+- id: h11
+  category: high_risk
+  question: What must a provider established outside the EU do before making a high-risk AI system available on the Union market?
+  answerable: true
+  gold: ["Article 22(1)"]
+  reference: Appoint, by written mandate, an authorised representative established in the Union.
+
+- id: h12
+  category: high_risk
+  question: When does a distributor, importer or deployer become the provider of a high-risk AI system?
+  answerable: true
+  gold: ["Article 25(1)"]
+  reference: When they put their name or trademark on a high-risk system already on the market, make a substantial modification to it so that it remains high-risk, or modify the intended purpose of a non-high-risk system so that it becomes high-risk.
+
+- id: h13
+  category: high_risk
+  question: Do high-risk systems in points 2 to 8 of Annex III require a notified body for conformity assessment?
+  answerable: true
+  gold: ["Article 43(2)"]
+  reference: No. Providers follow the internal-control conformity assessment procedure in Annex VI, which does not involve a notified body.
+
+- id: h14
+  category: high_risk
+  question: Does a high-risk AI system need a new conformity assessment after a substantial modification?
+  answerable: true
+  gold: ["Article 43(4)"]
+  reference: Yes, regardless of whether the modified system is further distributed or continues to be used by the current deployer; pre-determined changes of systems that continue to learn, documented in the initial assessment, are not substantial modifications.
+
+- id: h15
+  category: high_risk
+  question: How should the CE marking be applied to a high-risk AI system that is provided only digitally?
+  answerable: true
+  gold: ["Article 48(2)"]
+  reference: A digital CE marking is used, but only if it can easily be accessed via the interface from which the system is accessed or via an easily accessible machine-readable code or other electronic means.
+
+- id: h16
+  category: high_risk
+  question: Must providers register high-risk AI systems in an EU database before placing them on the market?
+  answerable: true
+  gold: ["Article 49(1)"]
+  reference: Yes. For Annex III high-risk systems (except critical infrastructure in point 2, registered nationally) the provider or authorised representative must register itself and the system in the EU database referred to in Article 71.
+
+# ---------------------------------------------------------------- deployers & affected persons
+- id: dp01
+  category: deployers
+  question: How long must deployers keep the logs generated by a high-risk AI system?
+  answerable: true
+  gold: ["Article 26(6)"]
+  reference: For a period appropriate to the intended purpose, of at least six months, unless Union or national law (in particular data protection law) provides otherwise.
+
+- id: dp02
+  category: deployers
+  question: Must an employer tell its workers before using a high-risk AI system at the workplace?
+  answerable: true
+  gold: ["Article 26(7)"]
+  reference: Yes. Before putting into service or using a high-risk AI system at the workplace, deployers who are employers must inform workers' representatives and the affected workers.
+
+- id: dp03
+  category: deployers
+  question: Which deployers must carry out a fundamental rights impact assessment?
+  answerable: true
+  gold: ["Article 27(1)"]
+  reference: Deployers that are bodies governed by public law or private entities providing public services, and deployers of high-risk systems for creditworthiness/credit scoring and for risk assessment and pricing in life and health insurance (Annex III points 5(b) and (c)), before deploying a high-risk system (except critical infrastructure systems).
+
+- id: dp04
+  category: deployers
+  question: Does a person affected by a decision based on a high-risk AI system have a right to an explanation?
+  answerable: true
+  gold: ["Article 86(1)"]
+  reference: Yes. A person subject to a decision taken by the deployer based on the output of an Annex III high-risk system (except point 2) that produces legal or similarly significant adverse effects has the right to obtain clear and meaningful explanations of the role of the AI system in the decision and the main elements of the decision.
+
+# ---------------------------------------------------------------- transparency
+- id: t01
+  category: transparency
+  question: Do chatbots have to tell users they are talking to an AI?
+  answerable: true
+  gold: ["Article 50(1)"]
+  reference: Yes. Providers must design AI systems that interact directly with natural persons so that people are informed they are interacting with an AI system, unless this is obvious from the context.
+
+- id: t02
+  category: transparency
+  question: What must providers of generative AI do so that AI-generated content can be identified?
+  answerable: true
+  gold: ["Article 50(2)"]
+  reference: Ensure outputs (synthetic audio, image, video or text) are marked in a machine-readable format and detectable as artificially generated or manipulated, with effective, interoperable, robust and reliable technical solutions as far as technically feasible.
+
+- id: t03
+  category: transparency
+  question: Do deployers have to disclose that content is a deep fake?
+  answerable: true
+  gold: ["Article 50(4)"]
+  reference: Yes. Deployers of AI systems generating or manipulating image, audio or video deep fakes must disclose that the content was artificially generated or manipulated, with lighter obligations for evidently artistic, creative, satirical or fictional works and exceptions for law enforcement uses authorised by law.
+
+# ---------------------------------------------------------------- general-purpose AI
+- id: g01
+  category: gpai
+  question: What are the obligations of providers of general-purpose AI models?
+  answerable: true
+  gold: ["Article 53(1)"]
+  reference: Draw up and keep up to date technical documentation (Annex XI) and information for downstream providers (Annex XII), put in place a policy to comply with Union copyright law, and publish a sufficiently detailed summary of the content used for training.
+
+- id: g02
+  category: gpai
+  question: Above what amount of training compute is a general-purpose AI model presumed to have high-impact capabilities?
+  answerable: true
+  gold: ["Article 51(2)"]
+  reference: When the cumulative amount of computation used for its training is greater than 10^25 floating point operations (FLOPs).
+
+- id: g03
+  category: gpai
+  question: What additional obligations apply to providers of general-purpose AI models with systemic risk?
+  answerable: true
+  gold: ["Article 55(1)"]
+  reference: Perform model evaluation including adversarial testing, assess and mitigate systemic risks at Union level, track and report serious incidents to the AI Office and national authorities without undue delay, and ensure an adequate level of cybersecurity protection.
+
+- id: g04
+  category: gpai
+  question: How quickly must a provider notify the Commission once its general-purpose model meets the high-impact capabilities threshold?
+  answerable: true
+  gold: ["Article 52(1)"]
+  reference: Without delay and in any event within two weeks after the requirement is met or it becomes known that it will be met.
+
+- id: g05
+  category: gpai
+  question: Are open-source general-purpose AI models exempt from the technical documentation obligations?
+  answerable: true
+  gold: ["Article 53(2)"]
+  reference: Yes for the documentation obligations in Article 53(1)(a) and (b), if released under a free and open-source licence with publicly available parameters, including weights, architecture and usage information; the exception does not apply to models with systemic risk.
+
+- id: g06
+  category: gpai
+  question: What is the maximum fine the Commission can impose on a provider of a general-purpose AI model?
+  answerable: true
+  gold: ["Article 101(1)"]
+  reference: Up to 3 % of annual total worldwide turnover in the preceding financial year or EUR 15 000 000, whichever is higher.
+
+# ---------------------------------------------------------------- enforcement & governance
+- id: e01
+  category: enforcement
+  question: What is the maximum fine for using a prohibited AI practice?
+  answerable: true
+  gold: ["Article 99(3)"]
+  reference: Up to EUR 35 000 000 or, for an undertaking, up to 7 % of total worldwide annual turnover for the preceding financial year, whichever is higher.
+
+- id: e02
+  category: enforcement
+  question: What fine applies for giving incorrect or misleading information to national authorities?
+  answerable: true
+  gold: ["Article 99(5)"]
+  reference: Up to EUR 7 500 000 or, for an undertaking, up to 1 % of total worldwide annual turnover, whichever is higher.
+
+- id: e03
+  category: enforcement
+  question: How are administrative fines calculated for SMEs and start-ups?
+  answerable: true
+  gold: ["Article 99(6)"]
+  reference: Each fine is capped at the percentage or the fixed amount set in paragraphs 3, 4 and 5, whichever is lower (instead of whichever is higher).
+
+- id: e04
+  category: enforcement
+  question: What is the deadline for a provider to report a serious incident involving a high-risk AI system?
+  answerable: true
+  gold: ["Article 73(2)"]
+  reference: Immediately after establishing a causal link or its reasonable likelihood, and no later than 15 days after becoming aware of the serious incident (shorter limits apply for widespread infringements and deaths).
+
+- id: e05
+  category: enforcement
+  question: If a serious incident caused someone's death, how soon must it be reported?
+  answerable: true
+  gold: ["Article 73(4)"]
+  reference: Immediately after establishing or suspecting a causal relationship, and not later than 10 days after becoming aware of the serious incident.
+
+- id: e06
+  category: enforcement
+  question: By when must each Member State have an AI regulatory sandbox operational?
+  answerable: true
+  gold: ["Article 57(1)"]
+  reference: At least one AI regulatory sandbox at national level must be operational by 2 August 2026.
+
+# ---------------------------------------------------------------- timeline
+- id: tl01
+  category: timeline
+  question: From when do the prohibitions on AI practices apply?
+  answerable: true
+  gold: ["Article 113"]
+  reference: From 2 February 2025 (Chapters I and II apply from that date).
+
+- id: tl02
+  category: timeline
+  question: When does the AI Act generally start to apply?
+  answerable: true
+  gold: ["Article 113"]
+  reference: It entered into force on the twentieth day after publication and applies generally from 2 August 2026, with earlier dates for Chapters I-II (2 February 2025) and GPAI, governance and penalties provisions (2 August 2025), and 2 August 2027 for Article 6(1).
+
+- id: tl03
+  category: timeline
+  question: By when must providers of general-purpose AI models placed on the market before 2 August 2025 comply?
+  answerable: true
+  gold: ["Article 111(3)"]
+  reference: By 2 August 2027.
+
+- id: l01
+  category: literacy
+  question: What does the AI Act require from companies regarding AI literacy?
+  answerable: true
+  gold: ["Article 4"]
+  reference: Providers and deployers must take measures to ensure, to their best extent, a sufficient level of AI literacy of their staff and others operating AI systems on their behalf, considering their knowledge, experience, education, training and the context of use.
+
+# ---------------------------------------------------------------- should be declined
+- id: u01
+  category: unanswerable
+  question: What is the capital of France?
+  answerable: false
+  gold: []
+  reference: Out of scope.
+
+- id: u02
+  category: unanswerable
+  question: What penalties does the US Executive Order on artificial intelligence impose on companies?
+  answerable: false
+  gold: []
+  reference: Not covered by the EU AI Act.
+
+- id: u03
+  category: unanswerable
+  question: How much does it cost in euros to register a high-risk AI system in the EU database?
+  answerable: false
+  gold: []
+  reference: The regulation does not set a registration fee.
+
+- id: u04
+  category: unanswerable
+  question: Which companies' models are currently on the Commission's list of general-purpose AI models with systemic risk?
+  answerable: false
+  gold: []
+  reference: The Act requires such a list to be published but does not contain it.
+
+- id: u05
+  category: unanswerable
+  question: What does the GDPR say about the right to be forgotten?
+  answerable: false
+  gold: []
+  reference: Other legislation; not in the AI Act.
+
+- id: u06
+  category: unanswerable
+  question: How many members of the European Parliament voted in favour of the AI Act?
+  answerable: false
+  gold: []
+  reference: Not in the text of the regulation.
+
+- id: u07
+  category: unanswerable
+  question: Write me a Python function that trains a neural network.
+  answerable: false
+  gold: []
+  reference: Out of scope.
+
+- id: u08
+  category: unanswerable
+  question: What liability insurance premium must self-driving car manufacturers pay under the AI Act?
+  answerable: false
+  gold: []
+  reference: The AI Act sets no insurance premiums.
