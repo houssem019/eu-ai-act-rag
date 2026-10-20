@@ -1,0 +1,113 @@
+{
+  "judge": "qwen2.5:7b",
+  "generator": "qwen2.5:7b",
+  "sample": null,
+  "metrics": {
+    "n_judged": 16,
+    "faithfulness": 0.90625,
+    "answer_correctness": 0.5716460622710623,
+    "unfaithful_answers": 2,
+    "judge_failures": 0,
+    "judge_calls": 80,
+    "parse_retries": 0
+  },
+  "cost_usd": 0.0,
+  "rows": [
+    {
+      "id": "d04",
+      "faithfulness": 1.0,
+      "answer_correctness": 1.0,
+      "error": null
+    },
+    {
+      "id": "d06",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.6,
+      "error": null
+    },
+    {
+      "id": "p01",
+      "faithfulness": 0.5,
+      "answer_correctness": 0.3333333333333333,
+      "error": null
+    },
+    {
+      "id": "p03",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.5,
+      "error": null
+    },
+    {
+      "id": "s04",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.8,
+      "error": null
+    },
+    {
+      "id": "s05",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.42857142857142855,
+      "error": null
+    },
+    {
+      "id": "h05",
+      "faithfulness": 0.0,
+      "answer_correctness": 0.33333333333333337,
+      "error": null
+    },
+    {
+      "id": "h06",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.39999999999999997,
+      "error": null
+    },
+    {
+      "id": "h07",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.16666666666666666,
+      "error": null
+    },
+    {
+      "id": "h08",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.2857142857142857,
+      "error": null
+    },
+    {
+      "id": "h14",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.6666666666666666,
+      "error": null
+    },
+    {
+      "id": "dp02",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.8,
+      "error": null
+    },
+    {
+      "id": "dp03",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.6153846153846153,
+      "error": null
+    },
+    {
+      "id": "t02",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.8,
+      "error": null
+    },
+    {
+      "id": "g02",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.6666666666666666,
+      "error": null
+    },
+    {
+      "id": "g03",
+      "faithfulness": 1.0,
+      "answer_correctness": 0.75,
+      "error": null
+    }
+  ]
+}

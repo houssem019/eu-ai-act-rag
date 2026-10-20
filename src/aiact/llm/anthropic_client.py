@@ -18,7 +18,9 @@ class AnthropicLLM:
         # credentials from ANTHROPIC_API_KEY or an `ant auth login` profile
         self.client = anthropic.Anthropic()
 
-    def complete(self, system: str, messages: list[dict]) -> LLMResponse:
+    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
+        # json_schema is not sent: the judge prompts already embed the schema, and the caller validates the reply
+        # with pydantic and retries once, which strong models don't need in practice.
         kwargs: dict = {}
         if self.model.startswith(_FALLBACK_MODELS):
             kwargs = {"betas": ["server-side-fallback-2026-07-01"], "fallbacks": "default"}

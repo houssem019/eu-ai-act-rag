@@ -79,3 +79,23 @@ Format: **Problem → Root cause → Fix → What I'd do at scale.**
   - **s04:** cited the GPAI and high-risk special cases (Articles 54 and 22) instead of the general scope rule, Article 2(1)(a).
   - Fix: a stronger model (re-record with Sonnet). Or enforce it in code: when an answer cites only recitals while an article is in the sources, use the repair turn to ask for the article.
 - **Lesson:** a single "accuracy" number hides which component to fix. Stage-attributed failure analysis is cheap, because the snapshot already stores what the model saw.
+
+## 13. Ragas 0.4.3 doesn't import with the current langchain-community
+- **Problem:** after `uv add ragas`, `import ragas` failed with `ModuleNotFoundError: langchain_community.chat_models.vertexai`. Ragas' legacy LLM module imports a class that langchain-community 0.4 removed.
+- **Fix:** pin `langchain-community<0.4` (it resolved to 0.3.31). The lockfile makes this reproducible, so CI installs the same set.
+- **Lesson:** evaluation frameworks carry large, fast-moving transitive dependencies. Pin them, keep them in the eval path only, and use their narrowest interface. Here that's a two-method LLM protocol, so the rest of Ragas' integrations can't break us.
+
+## 14. The eval library phones home by default
+- **Problem:** reading Ragas' source showed `_analytics.py` POSTs anonymous usage events to the vendor's endpoint unless `RAGAS_DO_NOT_TRACK=true` is set. That's not acceptable by default in CI or on a shared machine. (The first judged recording had already started before this was found.)
+- **Fix:** `aiact/evals/__init__.py` does `os.environ.setdefault("RAGAS_DO_NOT_TRACK", "true")` before Ragas is ever imported, and the CI workflow sets it globally. It can still be overridden explicitly.
+- **Lesson:** read what a new dependency does at import and runtime: network calls, telemetry, model downloads. fastembed's hub check (#10) was the same class of problem.
+
+## 15. Judging with a small local model: cost in time, and self-evaluation
+- **Problem:** Ragas Faithfulness takes 2 judge calls and AnswerCorrectness takes 3. Its prompts carry the JSON schema plus few-shot examples, about 1.5–3k tokens each. On a laptop CPU, qwen2.5:7b needs ~4 minutes per judged answer, so ~3.5 hours for all 53.
+- **Bias:** the only local model is the same qwen2.5:7b that generated the answers, so it grades its own work. Self-evaluation tends to be lenient.
+- **What I did:**
+  - judged a **stratified 20-question sample**: proportional across categories, fixed seed, not hand-picked;
+  - Ollama's schema-constrained decoding (`format: <JSON schema>`), so a weak judge can't break the JSON;
+  - one repair turn, then fail loudly (counted, never guessed);
+  - the self-evaluation caveat reported next to the numbers.
+- **At scale:** a judge stronger than the generator (Opus, per the plan), calibrated against a small human-labelled set. Run it in batch at 50% cost, and only on changed prompts or new data. The cassette makes every later CI run free.

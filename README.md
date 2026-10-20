@@ -3,7 +3,7 @@
 RAG service answering questions on EU AI Act (Regulation (EU) 2024/1689) obligations with article-level citations,
 hybrid retrieval (BM25 + dense), cross-encoder reranking, refusal on insufficient evidence and Ragas-gated CI.
 
-> 🚧 Work in progress: retrieval and grounded answering are done; LLM-judged evaluation (Ragas) and the HTTP service are next. See `docs/BUILD_LOG.md`.
+> 🚧 Work in progress: retrieval, grounded answering and Ragas-judged evaluation are done; the HTTP service is next. See `docs/BUILD_LOG.md`.
 
 ## Quickstart
 ```bash
@@ -118,10 +118,36 @@ The LLM is pluggable via `LLM_PROVIDER`:
 - **Threshold, gold retrieved but scored low:** t01.
 - **Generation, gold in the sources but the 7B model cited a recital or a specific case instead:** e03, s04.
 
-These are deterministic metrics. LLM-judged faithfulness and correctness come next.
+These are deterministic metrics. LLM-judged faithfulness and correctness are below.
 
 ```bash
 uv run python -m aiact.evals.answers --provider fake --gate data/eval/answer_baseline.json   # replay (CI, free, ~5 s)
 uv run python -m aiact.evals.answers --provider ollama --record --out data/eval/results      # re-record (~1 h CPU)
 ```
 CI replays the recorded retrieval snapshot and LLM cassette. A prompt change without re-recording fails loudly as a cassette miss.
+
+### LLM-judged evaluation (Ragas)
+Two Ragas metrics run on answered questions, using the sources the model actually saw and the curated reference answers (`aiact.evals.judged`):
+- **`Faithfulness`:** the share of the answer's statements that the sources support.
+- **`AnswerCorrectness`, factuality only:** the F1 of the answer's statements against the reference answer.
+
+Judge calls go through the same pluggable client and record/replay cassette as the answers, so CI recomputes both metrics for free.
+
+| Answers judged | Faithfulness | Answer correctness | Answers with an unsupported statement | Judge failures |
+|---|---|---|---|---|
+| 16 | **0.91** | **0.57** | 2 | 0 / 80 calls |
+
+**Scope:**
+- **Sample:** the first 16 of a stratified 20-question sample. The run was stopped at a time limit, after ~5 min per judged answer on a laptop CPU.
+- **Judge:** qwen2.5:7b judging its own answers. Self-evaluation is lenient, so treat these as a regression baseline, not absolute quality. The intended judge is `claude-opus-5-5` (`JUDGE_PROVIDER=anthropic`).
+
+**Reading the numbers:**
+- **Faithfulness:** high. The two misses:
+  - **h05:** answered just "Yes, according to [Annex III(a)]". A bare "Yes" carries no checkable claim, so the prompt should require restating the rule.
+  - **p01:** one overreaching sentence.
+- **Correctness:** middling, because answers are short (the prompt allows 1–5 sentences) and the references are fuller. The F1 penalizes the missing reference statements: h07, for instance, cites five correct units but covers only part of the reference.
+
+```bash
+uv run python -m aiact.evals.judged --provider fake --gate data/eval/judged_baseline.json   # replay (CI)
+uv run python -m aiact.evals.judged --provider ollama --record --sample 20                  # re-record (~5 min/answer)
+```

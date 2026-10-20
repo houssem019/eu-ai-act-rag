@@ -15,17 +15,17 @@ class OllamaLLM:
         self.num_ctx = num_ctx
         self.http = httpx.Client(base_url=host, timeout=timeout_s)
 
-    def complete(self, system: str, messages: list[dict]) -> LLMResponse:
+    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
         start = time.perf_counter()
-        r = self.http.post(
-            "/api/chat",
-            json={
-                "model": self.model,
-                "stream": False,
-                "options": {"temperature": 0, "num_ctx": self.num_ctx},
-                "messages": [{"role": "system", "content": system}, *messages],
-            },
-        )
+        body = {
+            "model": self.model,
+            "stream": False,
+            "options": {"temperature": 0, "num_ctx": self.num_ctx},
+            "messages": [{"role": "system", "content": system}, *messages],
+        }
+        if json_schema:
+            body["format"] = json_schema  # Ollama structured outputs: decoding constrained to the schema
+        r = self.http.post("/api/chat", json=body)
         r.raise_for_status()
         body = r.json()
         return LLMResponse(

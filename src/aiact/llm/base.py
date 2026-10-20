@@ -1,5 +1,5 @@
 """Provider-neutral LLM interface. Answering is a single grounded completion (plus at most one repair turn),
-so messages are plain {"role", "content": str} dicts and there are no tools."""
+so messages are plain {"role", "content": str} dicts and there are no tools. The eval judge also asks for JSON."""
 
 from dataclasses import dataclass, field
 from typing import Protocol
@@ -44,4 +44,6 @@ class LLMResponse:
 class LLMClient(Protocol):
     model: str
 
-    def complete(self, system: str, messages: list[dict]) -> LLMResponse: ...
+    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
+        """json_schema: ask for JSON matching this schema (the eval judge); providers enforce it if they can."""
+        ...

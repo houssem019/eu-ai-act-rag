@@ -44,5 +44,12 @@ class Settings(BaseSettings):
     ollama_host: str = Field("http://localhost:11434", validation_alias=_env("OLLAMA_HOST"))
     ollama_model: str = Field("qwen2.5:7b", validation_alias=_env("OLLAMA_MODEL"))
 
+    # LLM judge for the Ragas metrics. Defaults to Opus (judge stronger than the generator); `ollama` uses
+    # OLLAMA_MODEL, which is then also the generator - a self-evaluation caveat reported with the numbers.
+    judge_provider: Literal["anthropic", "ollama", "fake"] = Field(
+        "fake", validation_alias=_env("JUDGE_PROVIDER")
+    )
+    judge_model: str = Field("claude-opus-5-5", validation_alias=_env("JUDGE_MODEL"))
+
 
 settings = Settings()

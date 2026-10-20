@@ -20,8 +20,10 @@ class ScriptedLLM:
         self.replies = list(replies)
         self.calls: list[dict] = []
 
-    def complete(self, system: str, messages: list[dict]) -> LLMResponse:
-        self.calls.append({"system": system, "messages": [dict(m) for m in messages]})
+    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
+        self.calls.append(
+            {"system": system, "messages": [dict(m) for m in messages], "json_schema": json_schema}
+        )
         return LLMResponse(self.replies.pop(0), "end_turn", self.model, Usage(1000, 100))
 
 
@@ -29,8 +31,9 @@ class CassetteMiss(RuntimeError):
     pass
 
 
-def request_key(system: str, messages: list[dict]) -> str:
-    payload = json.dumps({"system": system, "messages": messages}, sort_keys=True)
+def request_key(system: str, messages: list[dict], json_schema: dict | None = None) -> str:
+    req = {"system": system, "messages": messages} | ({"json_schema": json_schema} if json_schema else {})
+    payload = json.dumps(req, sort_keys=True)
     return hashlib.sha256(payload.encode()).hexdigest()[:24]
 
 
@@ -42,8 +45,8 @@ class ReplayLLM:
         self.entries: dict = json.loads(cassette.read_text(encoding="utf-8")) if cassette.exists() else {}
         self.model = inner.model if inner else next((e["model"] for e in self.entries.values()), "replay")
 
-    def complete(self, system: str, messages: list[dict]) -> LLMResponse:
-        key = request_key(system, messages)
+    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
+        key = request_key(system, messages, json_schema)
         if key in self.entries:
             e = self.entries[key]
             return LLMResponse(e["text"], e["stop_reason"], e["model"], Usage(**e["usage"]), e["latency_ms"])
@@ -52,7 +55,7 @@ class ReplayLLM:
                 f"No recorded response for request {key} in {self.cassette.name}. The prompt or the retrieved "
                 "sources changed: re-record with a real model (README: Answer evaluation)."
             )
-        resp = self.inner.complete(system, messages)
+        resp = self.inner.complete(system, messages, json_schema)
         self.entries[key] = {
             "text": resp.text,
             "stop_reason": resp.stop_reason,

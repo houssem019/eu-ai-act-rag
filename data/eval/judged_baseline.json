@@ -1,0 +1,28 @@
+{
+  "_comment": "Ragas gate, replayed in CI from data/eval/cassettes/judge-qwen2.5-7b.json. Measured on these 16 answers (qwen2.5:7b judging qwen2.5:7b): faithfulness 0.906, answer_correctness 0.572 (data/eval/results/judged.md). Floors sit a little below; re-record and update deliberately when answers or prompts change.",
+  "ids": [
+    "d04",
+    "d06",
+    "p01",
+    "p03",
+    "s04",
+    "s05",
+    "h05",
+    "h06",
+    "h07",
+    "h08",
+    "h14",
+    "dp02",
+    "dp03",
+    "t02",
+    "g02",
+    "g03"
+  ],
+  "min": {
+    "faithfulness": 0.87,
+    "answer_correctness": 0.55
+  },
+  "max": {
+    "judge_failures": 0
+  }
+}

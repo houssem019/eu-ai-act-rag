@@ -141,7 +141,7 @@ def main() -> None:
         flag = f"refused/{a.refusal_reason}" if a.refused else "; ".join(a.citations)
         print(f"{q['id']:5s} {a.latency_ms / 1000:6.1f}s {flag}", flush=True)
 
-    result = score(questions, answers)
+    result = {"model": llm.model} | score(questions, answers)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "answers.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
     (args.out / "answers.md").write_text(to_markdown(result, llm.model), encoding="utf-8")
