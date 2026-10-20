@@ -13,7 +13,8 @@ build/
 .env
 
 # Data & artifacts (large files are never committed; small fixtures live in tests/fixtures)
-data/raw/
+data/raw/*
+!data/raw/ai_act_en.html
 data/processed/
 *.duckdb
 *.duckdb.wal
