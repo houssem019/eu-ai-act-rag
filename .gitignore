@@ -30,3 +30,6 @@ checkpoints/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Model weights and embedding caches (rebuilt on demand)
+data/cache/
