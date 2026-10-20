@@ -27,11 +27,11 @@ from bs4 import BeautifulSoup, Tag, XMLParsedAsHTMLWarning
 from aiact.config import settings
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)  # OJ serves XHTML; lxml handles it
-_WS = re.compile(r"[ \t   ]+")
+_WS = re.compile(r"[ \t\u00a0\u2009\u202f]+")
 
 
 def _clean(text: str) -> str:
-    return _WS.sub(" ", text).strip()
+    return re.sub(r"(\d) \^(\d)", r"\1^\2", _WS.sub(" ", text)).strip()
 
 
 @dataclass
@@ -186,8 +186,20 @@ def parse_annexes(soup: BeautifulSoup) -> list[Provision]:
     return out
 
 
+def _fix_superscripts(soup: BeautifulSoup) -> None:
+    """'10<sup>25</sup>' would flatten to '10 25' (a meaning-changing error for the GPAI compute threshold).
+    Keep exponents as '10^25'; drop footnote reference markers like '( 1 )', which are noise in chunks."""
+    for el in soup.find_all(class_="oj-super"):
+        prev = el.previous_sibling
+        if "oj-note-tag" in el.get("class", []):
+            el.decompose()
+        elif el.get_text().isdigit() and isinstance(prev, str) and prev.rstrip().endswith("10"):
+            el.replace_with("^" + el.get_text())
+
+
 def parse(html: str) -> list[Provision]:
     soup = BeautifulSoup(html, "lxml")
+    _fix_superscripts(soup)
     return parse_recitals(soup) + parse_articles(soup) + parse_annexes(soup)
 
 

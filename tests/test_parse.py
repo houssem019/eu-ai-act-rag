@@ -54,3 +54,8 @@ def test_committed_corpus_matches_parser(provisions):
     assert len(lines) == len(provisions)
     first = json.loads(lines[0])
     assert first["text"] == provisions[first["id"]].text
+
+
+def test_exponents_kept_and_footnote_markers_dropped(provisions):
+    assert "greater than 10^25" in provisions["art_51"].paragraphs[1].text
+    assert all("( 1 )" not in p.text for p in provisions.values())
