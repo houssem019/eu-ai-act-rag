@@ -9,9 +9,10 @@
 
 import hashlib
 import json
+from collections.abc import Iterator
 from pathlib import Path
 
-from aiact.llm.base import LLMClient, LLMResponse, Usage
+from aiact.llm.base import LLMClient, LLMResponse, Usage, chunked
 
 
 class ScriptedLLM:
@@ -25,6 +26,9 @@ class ScriptedLLM:
             {"system": system, "messages": [dict(m) for m in messages], "json_schema": json_schema}
         )
         return LLMResponse(self.replies.pop(0), "end_turn", self.model, Usage(1000, 100))
+
+    def stream(self, system: str, messages: list[dict]) -> Iterator[str | LLMResponse]:
+        yield from chunked(self.complete(system, messages), size=8)
 
 
 class CassetteMiss(RuntimeError):
@@ -56,6 +60,10 @@ class ReplayLLM:
                 "sources changed: re-record with a real model (README: Answer evaluation)."
             )
         resp = self.inner.complete(system, messages, json_schema)
+        self._save(key, resp)
+        return resp
+
+    def _save(self, key: str, resp: LLMResponse) -> None:
         self.entries[key] = {
             "text": resp.text,
             "stop_reason": resp.stop_reason,
@@ -65,4 +73,19 @@ class ReplayLLM:
         }
         self.cassette.parent.mkdir(parents=True, exist_ok=True)
         self.cassette.write_text(json.dumps(self.entries, indent=1, ensure_ascii=False), encoding="utf-8")
-        return resp
+
+    def stream(self, system: str, messages: list[dict]) -> Iterator[str | LLMResponse]:
+        """Same cassette entries as complete(): a recorded answer replays as a stream, and recording a stream
+        stores the assembled response, so streaming and non-streaming runs share one cassette."""
+        key = request_key(system, messages)
+        if key in self.entries or self.inner is None:
+            yield from chunked(self.complete(system, messages))
+            return
+        final = None
+        for item in self.inner.stream(system, messages):
+            if isinstance(item, LLMResponse):
+                final = item
+            else:
+                yield item
+        self._save(key, final)
+        yield final

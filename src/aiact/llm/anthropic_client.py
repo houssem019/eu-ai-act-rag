@@ -1,6 +1,7 @@
 """Claude via the official Anthropic SDK."""
 
 import time
+from collections.abc import Iterator
 
 import anthropic
 
@@ -18,27 +19,25 @@ class AnthropicLLM:
         # credentials from ANTHROPIC_API_KEY or an `ant auth login` profile
         self.client = anthropic.Anthropic()
 
-    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
-        # json_schema is not sent: the judge prompts already embed the schema, and the caller validates the reply
-        # with pydantic and retries once, which strong models don't need in practice.
-        kwargs: dict = {}
-        if self.model.startswith(_FALLBACK_MODELS):
-            kwargs = {"betas": ["server-side-fallback-2026-07-01"], "fallbacks": "default"}
-        start = time.perf_counter()
-        resp = self.client.beta.messages.create(
-            model=self.model,
-            max_tokens=self.max_tokens,
+    def _kwargs(self, system: str, messages: list[dict]) -> dict:
+        kwargs: dict = {
+            "model": self.model,
+            "max_tokens": self.max_tokens,
             # The instructions are identical on every call; the per-question sources go in the user turn.
-            system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
-            messages=messages,
-            output_config={"effort": self.effort},
-            **kwargs,
-        )
-        u = resp.usage
+            "system": [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+            "messages": messages,
+            "output_config": {"effort": self.effort},
+        }
+        if self.model.startswith(_FALLBACK_MODELS):
+            kwargs |= {"betas": ["server-side-fallback-2026-07-01"], "fallbacks": "default"}
+        return kwargs
+
+    def _response(self, msg, start: float) -> LLMResponse:
+        u = msg.usage
         return LLMResponse(
-            text="".join(b.text for b in resp.content if b.type == "text"),
-            stop_reason=resp.stop_reason or "end_turn",
-            model=resp.model,
+            text="".join(b.text for b in msg.content if b.type == "text"),
+            stop_reason=msg.stop_reason or "end_turn",
+            model=msg.model,
             usage=Usage(
                 input_tokens=u.input_tokens,
                 output_tokens=u.output_tokens,
@@ -47,3 +46,16 @@ class AnthropicLLM:
             ),
             latency_ms=round((time.perf_counter() - start) * 1000, 1),
         )
+
+    def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
+        # json_schema is not sent: the judge prompts already embed the schema, and the caller validates the reply
+        # with pydantic and retries once, which strong models don't need in practice.
+        start = time.perf_counter()
+        return self._response(self.client.beta.messages.create(**self._kwargs(system, messages)), start)
+
+    def stream(self, system: str, messages: list[dict]) -> Iterator[str | LLMResponse]:
+        start = time.perf_counter()
+        with self.client.beta.messages.stream(**self._kwargs(system, messages)) as s:
+            yield from s.text_stream
+            msg = s.get_final_message()
+        yield self._response(msg, start)  # stop_reason "refusal" is checked by the caller, as with complete()

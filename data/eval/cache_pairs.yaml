@@ -1,0 +1,48 @@
+# Question pairs for tuning the semantic cache (aiact.evals.cache_bench).
+# same: true  -> paraphrases with the same answer; a cache hit is correct (and saves an LLM call).
+# same: false -> look-alikes with a DIFFERENT answer; a cache hit would serve a wrong, confidently cited answer.
+# The hard negatives swap one legal term, role, date, number or annex point - exactly what embeddings blur.
+
+# ------------------------------------------------------------------ paraphrases (should hit)
+- {a: "How does the AI Act define an AI system?", b: "What is the definition of an 'AI system' in the AI Act?", same: true}
+- {a: "Who counts as a deployer under the regulation?", b: "Who is considered a deployer under the AI Act?", same: true}
+- {a: "What is a deep fake according to the AI Act?", b: "How does the AI Act define deep fakes?", same: true}
+- {a: "Is social scoring banned?", b: "Does the AI Act prohibit social scoring?", same: true}
+- {a: "Can an employer use AI to recognise the emotions of its employees at work?", b: "Is emotion recognition of workers in the workplace allowed?", same: true}
+- {a: "When do the prohibitions on AI practices apply?", b: "From what date are the banned AI practices prohibited?", same: true}
+- {a: "When does the AI Act generally start to apply?", b: "What is the general date of application of the AI Act?", same: true}
+- {a: "Is AI used to screen job applications a high-risk system?", b: "Are CV-screening AI tools classified as high-risk?", same: true}
+- {a: "Is AI used for credit scoring high-risk?", b: "Are creditworthiness assessment systems high-risk under the AI Act?", same: true}
+- {a: "Do chatbots have to tell users they are talking to an AI?", b: "Must a chatbot disclose that it is an AI system?", same: true}
+- {a: "How long must deployers keep the logs of a high-risk AI system?", b: "For how long do deployers have to retain automatically generated logs?", same: true}
+- {a: "What are the maximum fines for prohibited AI practices?", b: "How high can penalties be for using a prohibited AI practice?", same: true}
+- {a: "Does the AI Act apply to AI used only for military purposes?", b: "Are military AI systems covered by the AI Act?", same: true}
+- {a: "Does the AI Act apply to AI used for scientific research?", b: "Is AI developed solely for scientific research exempt from the AI Act?", same: true}
+- {a: "What must providers of general-purpose AI models do about copyright?", b: "What copyright obligations do GPAI model providers have?", same: true}
+- {a: "When is a general-purpose AI model presumed to have systemic risk?", b: "What compute threshold makes a GPAI model presumed to pose systemic risk?", same: true}
+- {a: "Within how many days must a serious incident be reported?", b: "What is the deadline for reporting a serious incident?", same: true}
+- {a: "What is an AI regulatory sandbox?", b: "Can you explain what AI regulatory sandboxes are under the AI Act?", same: true}
+- {a: "Must deployers ensure AI literacy of their staff?", b: "Is there an AI literacy obligation for deployers' employees?", same: true}
+- {a: "Who has to carry out a fundamental rights impact assessment?", b: "Which deployers must perform a fundamental rights impact assessment?", same: true}
+
+# ------------------------------------------------------------------ look-alikes (must NOT hit)
+- {a: "Who counts as a deployer under the regulation?", b: "Who counts as a provider under the regulation?", same: false}
+- {a: "Who counts as an importer under the AI Act?", b: "Who counts as a distributor under the AI Act?", same: false}
+- {a: "What is a deep fake according to the AI Act?", b: "What is an emotion recognition system according to the AI Act?", same: false}
+- {a: "When do the prohibitions on AI practices apply?", b: "When do the obligations for general-purpose AI models apply?", same: false}
+- {a: "When does the AI Act generally start to apply?", b: "When does Article 6(1) on high-risk classification start to apply?", same: false}
+- {a: "Is AI used to screen job applications a high-risk system?", b: "Is AI used to screen asylum applications a high-risk system?", same: false}
+- {a: "Is AI used for credit scoring high-risk?", b: "Is AI used for detecting financial fraud high-risk?", same: false}
+- {a: "What are the maximum fines for prohibited AI practices?", b: "What are the maximum fines for supplying incorrect information to authorities?", same: false}
+- {a: "What are the maximum fines for prohibited AI practices?", b: "What are the maximum fines for providers of general-purpose AI models?", same: false}
+- {a: "How long must deployers keep the logs of a high-risk AI system?", b: "How long must providers keep the technical documentation of a high-risk AI system?", same: false}
+- {a: "Within how many days must a serious incident be reported?", b: "Within how many days must a serious incident involving a death be reported?", same: false}
+- {a: "What must providers of general-purpose AI models do about copyright?", b: "What must providers of general-purpose AI models with systemic risk do about cybersecurity?", same: false}
+- {a: "Do chatbots have to tell users they are talking to an AI?", b: "Do deep fakes have to be labelled as artificially generated?", same: false}
+- {a: "Is social scoring banned?", b: "Is predictive policing based on profiling banned?", same: false}
+- {a: "Is real-time remote biometric identification allowed for law enforcement?", b: "Is post remote biometric identification allowed for law enforcement?", same: false}
+- {a: "What obligations do providers of high-risk AI systems have?", b: "What obligations do deployers of high-risk AI systems have?", same: false}
+- {a: "What does Annex III point 4 cover?", b: "What does Annex III point 5 cover?", same: false}
+- {a: "What does Article 5 of the AI Act say?", b: "What does Article 50 of the AI Act say?", same: false}
+- {a: "Does the AI Act apply to AI used only for military purposes?", b: "Does the AI Act apply to AI used for law enforcement purposes?", same: false}
+- {a: "Must human oversight be ensured for high-risk AI systems?", b: "Must accuracy and robustness be ensured for high-risk AI systems?", same: false}

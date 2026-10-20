@@ -100,9 +100,22 @@ jobs:
           tags: aiact:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      # Off-topic question: full retrieval runs inside the container, then the low-evidence gate refuses before
-      # any LLM call - so this needs no model server or API key.
-      - name: Smoke test (baked models, offline refusal path)
+      # Baked models must load with no network at all (fastembed would otherwise contact the Hugging Face hub).
+      - name: Smoke test (offline model load, CLI refusal path)
         run: |
-          docker run --rm --network none -e LLM_PROVIDER=ollama aiact:ci "What is the capital of France?" | tee out.txt
+          docker run --rm --network none -e LLM_PROVIDER=ollama --entrypoint python aiact:ci \
+            -m aiact.ask "What is the capital of France?" | tee out.txt
           grep -q "refused (low_evidence)" out.txt
+
+      # Off-topic question through the live HTTP API: retrieval runs inside the container, then the low-evidence gate
+      # refuses before any LLM call - so this needs no model server or key. Then an exact cache hit and /metrics.
+      - name: Smoke test (API up, refusal path, cache hit, metrics)
+        run: |
+          docker run -d --name aiact -p 8000:8000 -e LLM_PROVIDER=ollama aiact:ci
+          for i in $(seq 1 60); do curl -sf localhost:8000/health && break; sleep 2; done
+          ask() { curl -sf -X POST localhost:8000/ask -H 'content-type: application/json' -d '{"question":"What is the capital of France?"}'; }
+          ask | tee r1.json && grep -q '"refusal_reason":"low_evidence"' r1.json
+          ask | tee r2.json && grep -q '"cached":"exact"' r2.json
+          curl -sf localhost:8000/metrics | tee m.json && grep -q '"exact":1' m.json
+          docker logs aiact | tail -5
+          docker rm -f aiact

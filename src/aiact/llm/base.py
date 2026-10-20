@@ -1,6 +1,7 @@
 """Provider-neutral LLM interface. Answering is a single grounded completion (plus at most one repair turn),
 so messages are plain {"role", "content": str} dicts and there are no tools. The eval judge also asks for JSON."""
 
+from collections.abc import Iterator
 from dataclasses import dataclass, field
 from typing import Protocol
 
@@ -44,6 +45,17 @@ class LLMResponse:
 class LLMClient(Protocol):
     model: str
 
+    def stream(self, system: str, messages: list[dict]) -> Iterator["str | LLMResponse"]:
+        """Yield text deltas as they are generated; the last item is the complete LLMResponse."""
+        ...
+
     def complete(self, system: str, messages: list[dict], json_schema: dict | None = None) -> LLMResponse:
         """json_schema: ask for JSON matching this schema (the eval judge); providers enforce it if they can."""
         ...
+
+
+def chunked(resp: LLMResponse, size: int = 24) -> Iterator["str | LLMResponse"]:
+    """Stream a finished response (fakes and replays): fixed-size text chunks, then the response itself."""
+    for i in range(0, len(resp.text), size):
+        yield resp.text[i : i + size]
+    yield resp

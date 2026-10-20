@@ -3,7 +3,7 @@
 RAG service answering questions on EU AI Act (Regulation (EU) 2024/1689) obligations with article-level citations,
 hybrid retrieval (BM25 + dense), cross-encoder reranking, refusal on insufficient evidence and Ragas-gated CI.
 
-> 🚧 Work in progress: retrieval, grounded answering and Ragas-judged evaluation are done; the HTTP service is next. See `docs/BUILD_LOG.md`.
+Status: retrieval, grounded answering, deterministic and Ragas-judged evaluation, and the HTTP service (FastAPI + SSE, cache, metrics) are built, with CI gates on each. See `docs/BUILD_LOG.md`. See `docs/BUILD_LOG.md`.
 
 ## Quickstart
 ```bash
@@ -12,7 +12,7 @@ uv run python -m aiact.warmup                       # one-off: ~160 MB of ONNX m
 LLM_PROVIDER=ollama uv run python -m aiact.ask "Do chatbots have to disclose that they are AI?"
 LLM_PROVIDER=anthropic uv run python -m aiact.ask --json "Who counts as a deployer?"   # needs ANTHROPIC_API_KEY
 ```
-Docker: `docker build -t aiact .`, then `docker run --rm -e LLM_PROVIDER=ollama -e OLLAMA_HOST=http://host.docker.internal:11434 aiact "your question"`.
+Docker: `docker build -t aiact .`, then `docker run --rm -p 8000:8000 -e LLM_PROVIDER=ollama -e OLLAMA_HOST=http://host.docker.internal:11434 aiact` serves the API (see Serving).
 
 ## Corpus
 The source is the official English Official Journal XHTML of Regulation (EU) 2024/1689, committed in `data/raw/`. It's parsed into `data/corpus/ai_act.jsonl`: **306 provisions** (113 articles, 180 recitals, 13 annexes; 84.6k words) split into **786 citable units** (`Article 5(1)`, `Article 3(44)`, `Recital 27`, `Annex III`).
@@ -151,3 +151,28 @@ Judge calls go through the same pluggable client and record/replay cassette as t
 uv run python -m aiact.evals.judged --provider fake --gate data/eval/judged_baseline.json   # replay (CI)
 uv run python -m aiact.evals.judged --provider ollama --record --sample 20                  # re-record (~5 min/answer)
 ```
+
+## Serving
+```bash
+LLM_PROVIDER=ollama uv run uvicorn aiact.api:app --port 8000      # or: docker run -p 8000:8000 -e LLM_PROVIDER=... aiact
+curl -X POST localhost:8000/ask -H 'content-type: application/json' -d '{"question": "Is social scoring banned?"}'
+curl -N -X POST localhost:8000/ask/stream -H 'content-type: application/json' -d '{"question": "Is social scoring banned?"}'
+curl localhost:8000/metrics
+```
+- **`POST /ask`:** returns the verified answer (text, resolved citations, sources, refusal reason, tokens, cost), plus `cached`: `null`, `exact` or `semantic`.
+- **`POST /ask/stream`:** Server-Sent Events in the order `retrieval` (sources, top score), then `delta`* (the draft as it's generated), then optionally `repair`, then `final` (the verified answer). Citations can only be verified on the full text, so the client replaces the draft with `final`. The refusal sentinel is never streamed.
+- **`GET /metrics`:** p50/p95 latency split into retrieval, LLM, total and cached; cache hit rate; refusals by trigger; tokens; cost. Each request also writes one JSON log line.
+
+**Answer cache:**
+- **Exact tier:** matches the normalized question and is always on.
+- **Semantic tier:** only hits when cosine ≥ 0.96 **and** both questions name the same legal terms (Article 3 defined terms, references and numbers).
+- **Why the semantic tier is near-off:** on 40 labelled pairs (`data/bench/cache.json`), questions that swap one legal term ("provider" vs "deployer") embed as closely as real paraphrases, up to 0.957. At τ=0.85, half of them would get a wrong, fully cited answer. 0.96 is the only threshold with zero false hits.
+- **Versioning:** entries are versioned by prompt, retrieval config, corpus and model.
+
+**Measured live** (laptop CPU, qwen2.5:7b, `/metrics`):
+
+| Stage | Latency |
+|---|---|
+| Cache hit (exact) | 0.1 ms |
+| Retrieval + rerank | ~2.6 s p50 |
+| LLM, first token | ~183 s (prompt processing of ~2.1k tokens on a loaded CPU; a hosted model is ~1–2 s) |

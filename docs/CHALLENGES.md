@@ -99,3 +99,28 @@ Format: **Problem → Root cause → Fix → What I'd do at scale.**
   - one repair turn, then fail loudly (counted, never guessed);
   - the self-evaluation caveat reported next to the numbers.
 - **At scale:** a judge stronger than the generator (Opus, per the plan), calibrated against a small human-labelled set. Run it in batch at 50% cost, and only on changed prompts or new data. The cassette makes every later CI run free.
+
+## 16. Semantic caching is dangerous for legal QA
+- **Problem:** a semantic cache keyed on question embeddings would serve "Who counts as a provider?" the answer to "Who counts as a deployer?". On 40 labelled pairs, look-alikes that swap one legal term scored up to 0.957 cosine, above most real paraphrases (median 0.87). At a "normal" τ=0.85, 10 of 20 look-alikes would get a wrong, fully cited answer.
+- **Fix:**
+  - a guard that requires identical discriminating terms: Article 3 defined terms, references and numbers;
+  - versioned entries;
+  - τ=0.96, the lowest threshold with zero false hits.
+  - That leaves the semantic tier serving 5% of paraphrases. The exact-match tier stays on and is always safe.
+- **Bugs found by testing the guard:** "general-purpose AI **model**" was tagged as "general-purpose AI **system**", then the fix made "real-time remote biometric identification" match only "biometric identification". The fix is one pass, longest pattern first, pinned by parametrized tests. The semantic tier also first ignored the cache version; a test with τ=0 caught it.
+- **At scale:**
+  - cache retrieval results rather than answers, which degrades gracefully;
+  - or canonicalize questions into a structured intent (role + obligation + article) and cache on that;
+  - and track false-hit reports from users as a metric.
+
+## 17. Streaming and verification pull in opposite directions
+- **Problem:** citations can only be checked on the complete text, but streaming shows text before it's complete. A streamed draft can contain a citation that verification later strips, or the raw `INSUFFICIENT_EVIDENCE` sentinel.
+- **Fix:**
+  - Deltas are explicitly a *draft*. The `final` SSE event carries the verified answer, and the client replaces the draft with it.
+  - The sentinel is held back token by token until the text can no longer be the sentinel, so a refusal never flashes on screen.
+  - A `repair` event announces the second draft.
+- **At scale:** stream sentence by sentence and verify each sentence's citations as it closes. That keeps most of the latency win and doesn't show unverified citations.
+
+## 18. Time-to-first-token on CPU is all prompt processing
+- **Observation:** live through the API, qwen2.5:7b took 183 s to the first token and 193 s in total, for ~2.1k input tokens and 25 output tokens. Generation itself is fast; it's prompt evaluation on a loaded laptop CPU that's slow. (The recorded eval run averaged ~75 s per question on a quieter machine.)
+- **Implication:** the prompt is the cost. Five sources at ~900 tokens plus instructions is already lean, so the real fix is hardware or a hosted model. Claude would be ~1–2 s to first token, and the prompt-cached system prompt cuts input cost further.

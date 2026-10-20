@@ -148,8 +148,8 @@ def test_safety_refusal_stop_reason():
     class Refuser:
         model = "m"
 
-        def complete(self, system, messages):
-            return LLMResponse("", "refusal", "m", Usage(10, 0))
+        def stream(self, system, messages):
+            yield LLMResponse("", "refusal", "m", Usage(10, 0))
 
     a = Answerer(FixedRetriever(HITS), Refuser(), threshold=2.0).ask("q")
     assert a.refused and a.refusal_reason == "safety"

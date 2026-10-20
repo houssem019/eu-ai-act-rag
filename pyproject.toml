@@ -19,6 +19,9 @@ dependencies = [
     "anthropic>=1.15.0",
     "ragas>=0.4.3",
     "langchain-community<0.4",
+    "fastapi>=0.148.0",
+    "uvicorn[standard]>=0.54.0",
+    "sse-starlette>=3.5.0",
 ]
 
 [dependency-groups]

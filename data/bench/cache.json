@@ -1,0 +1,360 @@
+{
+  "n_paraphrases": 20,
+  "n_lookalikes": 20,
+  "rows": [
+    {
+      "threshold": 0.8,
+      "guard": false,
+      "hit_rate": 0.95,
+      "false_hits": 13
+    },
+    {
+      "threshold": 0.8,
+      "guard": true,
+      "hit_rate": 0.75,
+      "false_hits": 4
+    },
+    {
+      "threshold": 0.82,
+      "guard": false,
+      "hit_rate": 0.95,
+      "false_hits": 12
+    },
+    {
+      "threshold": 0.82,
+      "guard": true,
+      "hit_rate": 0.75,
+      "false_hits": 4
+    },
+    {
+      "threshold": 0.84,
+      "guard": false,
+      "hit_rate": 0.85,
+      "false_hits": 10
+    },
+    {
+      "threshold": 0.84,
+      "guard": true,
+      "hit_rate": 0.7,
+      "false_hits": 3
+    },
+    {
+      "threshold": 0.86,
+      "guard": false,
+      "hit_rate": 0.65,
+      "false_hits": 8
+    },
+    {
+      "threshold": 0.86,
+      "guard": true,
+      "hit_rate": 0.6,
+      "false_hits": 3
+    },
+    {
+      "threshold": 0.88,
+      "guard": false,
+      "hit_rate": 0.35,
+      "false_hits": 6
+    },
+    {
+      "threshold": 0.88,
+      "guard": true,
+      "hit_rate": 0.35,
+      "false_hits": 3
+    },
+    {
+      "threshold": 0.9,
+      "guard": false,
+      "hit_rate": 0.25,
+      "false_hits": 3
+    },
+    {
+      "threshold": 0.9,
+      "guard": true,
+      "hit_rate": 0.25,
+      "false_hits": 1
+    },
+    {
+      "threshold": 0.92,
+      "guard": false,
+      "hit_rate": 0.15,
+      "false_hits": 1
+    },
+    {
+      "threshold": 0.92,
+      "guard": true,
+      "hit_rate": 0.15,
+      "false_hits": 1
+    },
+    {
+      "threshold": 0.94,
+      "guard": false,
+      "hit_rate": 0.1,
+      "false_hits": 1
+    },
+    {
+      "threshold": 0.94,
+      "guard": true,
+      "hit_rate": 0.1,
+      "false_hits": 1
+    },
+    {
+      "threshold": 0.96,
+      "guard": false,
+      "hit_rate": 0.05,
+      "false_hits": 0
+    },
+    {
+      "threshold": 0.96,
+      "guard": true,
+      "hit_rate": 0.05,
+      "false_hits": 0
+    },
+    {
+      "threshold": 0.98,
+      "guard": false,
+      "hit_rate": 0.0,
+      "false_hits": 0
+    },
+    {
+      "threshold": 0.98,
+      "guard": true,
+      "hit_rate": 0.0,
+      "false_hits": 0
+    }
+  ],
+  "chosen": {
+    "threshold": 0.96,
+    "guard": true,
+    "hit_rate": 0.05,
+    "false_hits": 0
+  },
+  "guard_blocked": [
+    {
+      "a": "Can an employer use AI to recognise the emotions of its employees at work?",
+      "b": "Is emotion recognition of workers in the workplace allowed?",
+      "a_terms": [],
+      "b_terms": [
+        "emotion recognition system"
+      ]
+    },
+    {
+      "a": "What must providers of general-purpose AI models do about copyright?",
+      "b": "What copyright obligations do GPAI model providers have?",
+      "a_terms": [
+        "general purpose ai model",
+        "provider"
+      ],
+      "b_terms": [
+        "provider"
+      ]
+    },
+    {
+      "a": "When is a general-purpose AI model presumed to have systemic risk?",
+      "b": "What compute threshold makes a GPAI model presumed to pose systemic risk?",
+      "a_terms": [
+        "general purpose ai model",
+        "systemic risk"
+      ],
+      "b_terms": [
+        "systemic risk"
+      ]
+    },
+    {
+      "a": "Who has to carry out a fundamental rights impact assessment?",
+      "b": "Which deployers must perform a fundamental rights impact assessment?",
+      "a_terms": [],
+      "b_terms": [
+        "deployer"
+      ]
+    },
+    {
+      "a": "Who counts as a deployer under the regulation?",
+      "b": "Who counts as a provider under the regulation?",
+      "a_terms": [
+        "deployer"
+      ],
+      "b_terms": [
+        "provider"
+      ]
+    },
+    {
+      "a": "Who counts as an importer under the AI Act?",
+      "b": "Who counts as a distributor under the AI Act?",
+      "a_terms": [
+        "importer"
+      ],
+      "b_terms": [
+        "distributor"
+      ]
+    },
+    {
+      "a": "What is a deep fake according to the AI Act?",
+      "b": "What is an emotion recognition system according to the AI Act?",
+      "a_terms": [
+        "deep fake"
+      ],
+      "b_terms": [
+        "emotion recognition system"
+      ]
+    },
+    {
+      "a": "When do the prohibitions on AI practices apply?",
+      "b": "When do the obligations for general-purpose AI models apply?",
+      "a_terms": [],
+      "b_terms": [
+        "general purpose ai model"
+      ]
+    },
+    {
+      "a": "When does the AI Act generally start to apply?",
+      "b": "When does Article 6(1) on high-risk classification start to apply?",
+      "a_terms": [],
+      "b_terms": [
+        "article 6(1)"
+      ]
+    },
+    {
+      "a": "What are the maximum fines for prohibited AI practices?",
+      "b": "What are the maximum fines for providers of general-purpose AI models?",
+      "a_terms": [],
+      "b_terms": [
+        "general purpose ai model",
+        "provider"
+      ]
+    },
+    {
+      "a": "How long must deployers keep the logs of a high-risk AI system?",
+      "b": "How long must providers keep the technical documentation of a high-risk AI system?",
+      "a_terms": [
+        "deployer"
+      ],
+      "b_terms": [
+        "provider"
+      ]
+    },
+    {
+      "a": "What must providers of general-purpose AI models do about copyright?",
+      "b": "What must providers of general-purpose AI models with systemic risk do about cybersecurity?",
+      "a_terms": [
+        "general purpose ai model",
+        "provider"
+      ],
+      "b_terms": [
+        "general purpose ai model",
+        "provider",
+        "systemic risk"
+      ]
+    },
+    {
+      "a": "Do chatbots have to tell users they are talking to an AI?",
+      "b": "Do deep fakes have to be labelled as artificially generated?",
+      "a_terms": [],
+      "b_terms": [
+        "deep fake"
+      ]
+    },
+    {
+      "a": "Is social scoring banned?",
+      "b": "Is predictive policing based on profiling banned?",
+      "a_terms": [],
+      "b_terms": [
+        "profiling"
+      ]
+    },
+    {
+      "a": "Is real-time remote biometric identification allowed for law enforcement?",
+      "b": "Is post remote biometric identification allowed for law enforcement?",
+      "a_terms": [
+        "law enforcement",
+        "real time remote biometric identification system"
+      ],
+      "b_terms": [
+        "law enforcement",
+        "post remote biometric identification system"
+      ]
+    },
+    {
+      "a": "What obligations do providers of high-risk AI systems have?",
+      "b": "What obligations do deployers of high-risk AI systems have?",
+      "a_terms": [
+        "provider"
+      ],
+      "b_terms": [
+        "deployer"
+      ]
+    },
+    {
+      "a": "What does Annex III point 4 cover?",
+      "b": "What does Annex III point 5 cover?",
+      "a_terms": [
+        "annex iii",
+        "point 4"
+      ],
+      "b_terms": [
+        "annex iii",
+        "point 5"
+      ]
+    },
+    {
+      "a": "What does Article 5 of the AI Act say?",
+      "b": "What does Article 50 of the AI Act say?",
+      "a_terms": [
+        "article 5"
+      ],
+      "b_terms": [
+        "article 50"
+      ]
+    },
+    {
+      "a": "Does the AI Act apply to AI used only for military purposes?",
+      "b": "Does the AI Act apply to AI used for law enforcement purposes?",
+      "a_terms": [],
+      "b_terms": [
+        "law enforcement"
+      ]
+    }
+  ],
+  "similarities": [
+    0.9543,
+    0.7941,
+    0.9617,
+    0.8471,
+    0.8479,
+    0.8717,
+    0.8803,
+    0.835,
+    0.8434,
+    0.898,
+    0.8684,
+    0.9052,
+    0.8773,
+    0.8602,
+    0.8522,
+    0.8218,
+    0.8735,
+    0.9044,
+    0.9298,
+    0.862,
+    0.8147,
+    0.8396,
+    0.6603,
+    0.773,
+    0.6632,
+    0.8929,
+    0.8834,
+    0.7652,
+    0.8704,
+    0.8557,
+    0.9567,
+    0.7585,
+    0.6115,
+    0.6508,
+    0.9059,
+    0.9136,
+    0.8937,
+    0.8735,
+    0.8477,
+    0.8209
+  ]
+}

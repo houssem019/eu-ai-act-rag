@@ -12,9 +12,10 @@ A citation the sources don't contain is never shown to the user: it is stripped 
 
 import re
 import time
+from collections.abc import Generator, Iterator
 from dataclasses import asdict, dataclass, field
 
-from aiact.llm.base import LLMClient, Usage
+from aiact.llm.base import LLMClient, LLMResponse, Usage
 from aiact.retrieve import Hit
 
 REFUSAL_SENTINEL = "INSUFFICIENT_EVIDENCE"
@@ -104,10 +105,24 @@ def strip_invalid(text: str, units: list[str]) -> str:
 
 
 class Answerer:
+    """`stream()` is the one code path (CLI, evals and the HTTP API all use it); `ask()` just consumes it.
+
+    Events: {"type": "retrieval", ...}, then {"type": "delta", "text"} while the draft streams, {"type": "repair"}
+    if a repair turn starts (a second draft streams after it), and always a last {"type": "final", "answer"}.
+    Streamed deltas are a *draft*: the final answer is the verified one (invalid citations stripped, or a refusal),
+    and clients replace the draft with it. The refusal sentinel is held back so users never see it stream.
+    """
+
     def __init__(self, retriever, llm: LLMClient, threshold: float, top_k: int = 5):
         self.retriever, self.llm, self.threshold, self.top_k = retriever, llm, threshold, top_k
 
     def ask(self, question: str) -> Answer:
+        for event in self.stream(question):
+            if event["type"] == "final":
+                return event["answer"]
+        raise RuntimeError("stream ended without a final answer")
+
+    def stream(self, question: str) -> Iterator[dict]:
         t0 = time.perf_counter()
         res = self.retriever.search(question, "rerank", k=self.top_k)
         hits, top = res.hits, res.top_score
@@ -125,16 +140,18 @@ class Answerer:
             model=self.llm.model,
             retrieval_ms=res.latency_ms,
         )
+        yield {"type": "retrieval", "sources": ans.sources, "top_score": top, "retrieval_ms": res.latency_ms}
         if top < self.threshold:
-            ans.latency_ms = (time.perf_counter() - t0) * 1000
-            return ans
+            yield self._final(ans, t0)
+            return
 
         units = [c for h in hits for c in h.chunk.citations]
         messages = [{"role": "user", "content": build_user_message(question, hits)}]
-        resp = self._call(ans, messages)
+        resp = yield from self._generate(ans, messages)
         if resp.stop_reason == "refusal":
             ans.refusal_reason = "safety"
-            return self._done(ans, t0)
+            yield self._final(ans, t0)
+            return
         text = resp.text.strip()
         valid, invalid = parse_citations(text, units)
         if REFUSAL_SENTINEL not in text and (not valid or invalid):
@@ -156,7 +173,8 @@ class Answerer:
             ]
             ans.repaired = True
             ans.invalid_citations = invalid
-            text = self._call(ans, messages).text.strip()
+            yield {"type": "repair", "reason": problem}
+            text = (yield from self._generate(ans, messages)).text.strip()
             valid, invalid = parse_citations(text, units)
             ans.invalid_citations += invalid
 
@@ -167,16 +185,29 @@ class Answerer:
         else:
             ans.refused, ans.refusal_reason = False, None
             ans.text, ans.citations = strip_invalid(text, units), valid
-        return self._done(ans, t0)
+        yield self._final(ans, t0)
 
-    def _call(self, ans: Answer, messages: list[dict]):
-        resp = self.llm.complete(SYSTEM_PROMPT, messages)
+    def _generate(self, ans: Answer, messages: list[dict]) -> Generator[dict, None, LLMResponse]:
+        """Stream one LLM call as delta events; return its LLMResponse. Text that could still turn out to be the
+        refusal sentinel is buffered until it can't."""
+        buffer, flushing, resp = "", False, None
+        for item in self.llm.stream(SYSTEM_PROMPT, messages):
+            if isinstance(item, LLMResponse):
+                resp = item
+                continue
+            if flushing:
+                yield {"type": "delta", "text": item}
+                continue
+            buffer += item
+            if not REFUSAL_SENTINEL.startswith(buffer.lstrip()[: len(REFUSAL_SENTINEL)]):
+                flushing = True
+                yield {"type": "delta", "text": buffer}
         ans.llm_calls += 1
         ans.usage = ans.usage + resp.usage
         ans.model = resp.model
         return resp
 
     @staticmethod
-    def _done(ans: Answer, t0: float) -> Answer:
+    def _final(ans: Answer, t0: float) -> dict:
         ans.latency_ms = (time.perf_counter() - t0) * 1000
-        return ans
+        return {"type": "final", "answer": ans}

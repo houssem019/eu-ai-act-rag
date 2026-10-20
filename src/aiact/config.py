@@ -33,6 +33,14 @@ class Settings(BaseSettings):
     # unanswerable questions (data/bench/production_p2.md).
     refusal_threshold: float = 1.37
 
+    # API answer cache: exact match always; semantic match only at cosine >= cache_threshold AND identical
+    # discriminating terms. 0.96 is the lowest threshold with zero false hits on data/eval/cache_pairs.yaml
+    # (data/bench/cache.json) - near-off by design: a false hit serves a wrong answer with valid citations.
+    cache_enabled: bool = True
+    cache_threshold: float = 0.96
+    cache_max_entries: int = 1000
+    cache_ttl_s: float = 86400.0
+
     # LLM provider: anthropic (Claude API) | ollama (free, local) | fake (replay a recorded cassette)
     llm_provider: Literal["anthropic", "ollama", "fake"] = Field(
         "fake", validation_alias=_env("LLM_PROVIDER")

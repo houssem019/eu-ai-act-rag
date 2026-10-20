@@ -8,6 +8,7 @@
 """
 
 import json
+import threading
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -49,6 +50,9 @@ class Retriever:
     ):
         self.index, self.dense, self.sparse, self.reranker = index, dense, sparse, reranker
         self.candidates, self.recital_penalty = candidates, recital_penalty
+        # Qdrant local mode and the ONNX sessions are shared in-process: serialize searches from the API's
+        # threadpool. LLM calls (the slow part) still run concurrently. At scale: a Qdrant server + replicas.
+        self._lock = threading.Lock()
 
     def _query(self, query: str, mode: str, limit: int) -> list[Hit]:
         dq = self.dense.embed_query(query).tolist()
@@ -71,6 +75,10 @@ class Retriever:
     def search(self, query: str, mode: str = "rerank", k: int = 10) -> Result:
         if mode not in MODES:
             raise ValueError(f"unknown mode {mode!r}; choose from {MODES}")
+        with self._lock:
+            return self._search(query, mode, k)
+
+    def _search(self, query: str, mode: str, k: int) -> Result:
         t0 = time.perf_counter()
         if mode == "rerank":
             if self.reranker is None:
