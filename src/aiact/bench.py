@@ -141,12 +141,35 @@ def main() -> None:
     p.add_argument("--embedders", nargs="+", default=list(DENSE_MODELS), choices=list(DENSE_MODELS))
     p.add_argument("--modes", nargs="+", default=list(MODES), choices=MODES)
     p.add_argument("--out", type=Path, default=OUT_DIR / "retrieval.json")
+    p.add_argument("--gate", type=Path, help="baseline JSON of minimum metrics; exit 1 if any is not met")
     args = p.parse_args()
     result = run(args.chunkings, args.embedders, args.modes)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2), encoding="utf-8")
     args.out.with_suffix(".md").write_text(to_markdown(result), encoding="utf-8")
     print(f"\nWrote {args.out} and {args.out.with_suffix('.md')}")
+    if args.gate:
+        failures = check_gate(result, json.loads(args.gate.read_text(encoding="utf-8")))
+        print("\n".join(failures) or "Retrieval gate passed.")
+        raise SystemExit(1 if failures else 0)
+
+
+def check_gate(result: dict, baseline: dict) -> list[str]:
+    """baseline: {"chunking/embedder/mode": {"recall@5": min, ...}, "refusal/chunking/embedder": {...}}.
+    Every baseline entry must be present in the run, so a gate can't pass by silently skipping a config."""
+    found = {f"{r['chunking']}/{r['embedder']}/{r['mode']}": r for r in result["rows"]}
+    found |= {f"refusal/{r['chunking']}/{r['embedder']}": r for r in result["refusal"]}
+    failures = []
+    for key, mins in baseline.items():
+        if key.startswith("_"):
+            continue
+        if key not in found:
+            failures.append(f"FAIL {key}: not in this run")
+            continue
+        for metric, floor in mins.items():
+            if found[key][metric] < floor:
+                failures.append(f"FAIL {key} {metric}={found[key][metric]:.3f} < baseline {floor}")
+    return failures
 
 
 if __name__ == "__main__":

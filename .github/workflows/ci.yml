@@ -1,0 +1,63 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --locked
+
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Tests (fake encoders and fake LLM, no models, no API key)
+        run: uv run pytest -q
+
+  # Real models on the committed corpus and eval set. Fails if the production retrieval config drops below
+  # data/bench/baseline.json. The reranker dominates the runtime (~63 queries x a few seconds on CPU).
+  retrieval-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --locked --no-dev
+
+      - name: Cache fastembed models
+        uses: actions/cache@v4
+        with:
+          path: data/cache/models
+          key: fastembed-bge-small-bm25-minilm-v1
+
+      - name: Retrieval regression gate
+        run: >-
+          uv run python -m aiact.bench --chunkings paragraph --embedders bge-small --modes rerank
+          --out bench-results/retrieval.json --gate data/bench/baseline.json
+
+      - name: Upload retrieval report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrieval-results
+          path: bench-results/

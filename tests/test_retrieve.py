@@ -119,3 +119,22 @@ def test_metrics():
 def test_choose_threshold_separates_and_prefers_answering():
     t = choose_threshold(pos=[5.0, 6.0, 1.0], neg=[-3.0, -1.0])
     assert t["threshold"] == 1.0 and t["refusal_rate"] == 1.0 and t["answer_rate"] == 1.0
+
+
+def test_gate_flags_drops_and_missing_configs():
+    from aiact.bench import check_gate
+
+    result = {
+        "rows": [{"chunking": "paragraph", "embedder": "bge-small", "mode": "rerank", "recall@5": 0.85}],
+        "refusal": [],
+    }
+    fails = check_gate(
+        result,
+        {
+            "_comment": "ignored",
+            "paragraph/bge-small/rerank": {"recall@5": 0.87},
+            "refusal/paragraph/bge-small": {"refusal_rate": 0.75},
+        },
+    )
+    assert len(fails) == 2 and "0.850 < baseline 0.87" in fails[0] and "not in this run" in fails[1]
+    assert check_gate(result, {"paragraph/bge-small/rerank": {"recall@5": 0.80}}) == []
