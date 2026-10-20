@@ -1,0 +1,5 @@
+{
+  "_comment": "Answer eval gate, replayed in CI from data/eval/cassettes (retrieval snapshot + qwen2.5:7b cassette). Measured: answer_rate 0.96, refusal_rate 1.00, citation_accuracy 0.92, invalid_citation_rate 0.02, article_citation_rate 0.96 (data/eval/results/answers.md). Replay is deterministic, so floors sit one question below the measured values to allow deliberate trade-offs; re-record and update this file on purpose when the prompt or retrieval changes.",
+  "min": {"answer_rate": 0.94, "refusal_rate": 0.87, "citation_accuracy": 0.9, "article_citation_rate": 0.94},
+  "max": {"invalid_citation_rate": 0.05}
+}

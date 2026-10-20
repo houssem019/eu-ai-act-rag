@@ -33,3 +33,7 @@ Thumbs.db
 
 # Model weights and embedding caches (rebuilt on demand)
 data/cache/
+
+# CI / local eval report folders (committed results live in data/bench and data/eval/results)
+eval-results/
+bench-results/

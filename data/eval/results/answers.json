@@ -1,0 +1,1223 @@
+{
+  "n_answerable": 55,
+  "n_unanswerable": 8,
+  "metrics": {
+    "answer_rate": 0.9636363636363636,
+    "refusal_rate": 1.0,
+    "citation_accuracy": 0.9245283018867925,
+    "invalid_citation_rate": 0.01818181818181818,
+    "article_citation_rate": 0.9622641509433962,
+    "repair_rate": 0.01818181818181818,
+    "p50_latency_ms": 74809,
+    "mean_cost_usd": 0.0,
+    "refusal_reasons": {
+      "low_evidence": 8,
+      "model": 2,
+      "uncited": 0,
+      "safety": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "d01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 3(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 4.63,
+      "latency_ms": 21327,
+      "input_tokens": 1151,
+      "output_tokens": 69,
+      "cost_usd": 0.0,
+      "answer": "An AI system is defined as a machine-based system that is designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment. It infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments. [Article 3(1)]"
+    },
+    {
+      "id": "d02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 3(4)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 5.37,
+      "latency_ms": 48643,
+      "input_tokens": 828,
+      "output_tokens": 54,
+      "cost_usd": 0.0,
+      "answer": "A deployer is any natural or legal person, including a public authority, agency or other body, using an AI system under its authority, except where the AI system is used in the course of a personal non-professional activity. [Article 3(4)]"
+    },
+    {
+      "id": "d03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 3(60)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.14,
+      "latency_ms": 100826,
+      "input_tokens": 1757,
+      "output_tokens": 48,
+      "cost_usd": 0.0,
+      "answer": "A deep fake is AI-generated or manipulated image, audio or video content that resembles existing persons, objects, places, entities or events and would falsely appear to a person to be authentic or truthful. [Article 3(60)]"
+    },
+    {
+      "id": "d04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 3(49)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 5.52,
+      "latency_ms": 57417,
+      "input_tokens": 928,
+      "output_tokens": 97,
+      "cost_usd": 0.0,
+      "answer": "A serious incident is defined as an incident or malfunctioning of an AI system that directly or indirectly leads to any of the following: (a) the death of a person, or serious harm to a person’s health; (b) a serious and irreversible disruption of the management or operation of critical infrastructure; (c) the infringement of obligations under Union law intended to protect fundamental rights; (d) serious harm to property or the environment. [Article 3(49)]"
+    },
+    {
+      "id": "d05",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 3(63)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.93,
+      "latency_ms": 49385,
+      "input_tokens": 887,
+      "output_tokens": 83,
+      "cost_usd": 0.0,
+      "answer": "A general-purpose AI model is an AI model that displays significant generality and is capable of competently performing a wide range of distinct tasks, regardless of the way the model is placed on the market and that can be integrated into a variety of downstream systems or applications, except AI models used for research, development, or prototyping activities before they are placed on the market. [Article 3(63)]"
+    },
+    {
+      "id": "d06",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 3(23)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.76,
+      "latency_ms": 88286,
+      "input_tokens": 1275,
+      "output_tokens": 104,
+      "cost_usd": 0.0,
+      "answer": "A \"substantial modification\" of an AI system means a change to an AI system after its placing on the market or putting into service which is not foreseen or planned in the initial conformity assessment carried out by the provider and as a result of which the compliance of the AI system with the requirements set out in Chapter III (HIGH-RISK AI SYSTEMS), Section 2 is affected or results in a modification to the intended purpose for which the AI system has been assessed; [Article 3(23)]."
+    },
+    {
+      "id": "p01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 5(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.67,
+      "latency_ms": 100918,
+      "input_tokens": 1173,
+      "output_tokens": 193,
+      "cost_usd": 0.0,
+      "answer": "The following AI practices are prohibited:\n- The use of AI systems that deploy subliminal techniques or manipulative techniques to distort behavior, causing significant harm [Article 5(1)(a)];\n- The use of AI systems that exploit vulnerabilities of individuals due to age, disability, or social/economic situation to distort behavior, causing significant harm [Article 5(1)(b)];\n- The use of AI systems for evaluating or classifying individuals based on social behavior or personal characteristics, leading to unjustified or disproportionate treatment [Article 5(1)(c)];\n- Targeted searches for victims of abduction, trafficking, or sexual exploitation, and missing persons [Article 5(1)(i)];\n- Prevention of specific, imminent threats to life or physical safety, or genuine threats of terrorist attacks [Article 5(1)(ii)];\n- Localizing or identifying persons suspected of criminal offenses for criminal investigations or prosecutions [Article 5(1)(iii)]."
+    },
+    {
+      "id": "p02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 5(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 4.72,
+      "latency_ms": 133552,
+      "input_tokens": 1889,
+      "output_tokens": 107,
+      "cost_usd": 0.0,
+      "answer": "No, AI-based social scoring of people is not allowed. According to [Article 5(1)(c)], the placing on the market, putting into service, or use of AI systems for evaluating or classifying natural persons or groups of persons over a certain period of time based on their social behaviour or known, inferred, or predicted personal or personality characteristics, where the social score leads to detrimental or unfavourable treatment of certain natural persons or groups of persons in unrelated social contexts or unjustified or disproportionate treatment, is prohibited."
+    },
+    {
+      "id": "p03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Recital 44"
+      ],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 2.36,
+      "latency_ms": 74606,
+      "input_tokens": 1319,
+      "output_tokens": 36,
+      "cost_usd": 0.0,
+      "answer": "No, the use of AI systems intended to detect the emotional state of individuals in situations related to the workplace is prohibited under the EU AI Act [Recital 44]."
+    },
+    {
+      "id": "p04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 5(2)",
+        "Article 5(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.63,
+      "latency_ms": 100872,
+      "input_tokens": 1506,
+      "output_tokens": 110,
+      "cost_usd": 0.0,
+      "answer": "Police may use real-time remote biometric identification in publicly accessible spaces for law enforcement purposes if the use is for one of the objectives listed in Article 5(1), first subparagraph, point (h), and complies with the necessary and proportionate safeguards and conditions, including a fundamental rights impact assessment and registration in the EU database, unless there is a duly justified situation of urgency. In urgent cases, use may commence without registration, but registration must be completed without undue delay. [Article 5(2); Article 5(3)]"
+    },
+    {
+      "id": "p05",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 5(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.02,
+      "latency_ms": 120475,
+      "input_tokens": 1783,
+      "output_tokens": 48,
+      "cost_usd": 0.0,
+      "answer": "Yes, each use of a 'real-time' remote biometric identification system in publicly accessible spaces for law enforcement purposes needs prior authorisation from a judicial authority or an independent administrative authority whose decision is binding [Article 5(3)]."
+    },
+    {
+      "id": "s01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 2(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.39,
+      "latency_ms": 77291,
+      "input_tokens": 1177,
+      "output_tokens": 42,
+      "cost_usd": 0.0,
+      "answer": "No, the AI Act does not apply to AI systems used exclusively for military, defence, or national security purposes, regardless of the type of entity carrying out those activities. [Article 2(3)]"
+    },
+    {
+      "id": "s02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 2(6)",
+        "Recital 25",
+        "Recital 97"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.62,
+      "latency_ms": 90686,
+      "input_tokens": 1242,
+      "output_tokens": 64,
+      "cost_usd": 0.0,
+      "answer": "Yes, AI developed solely for scientific research is not covered by the regulation [Article 2(6)]. However, the regulation does not affect other AI systems or models used for research and development activities prior to being placed on the market or put into service [Recital 25; Recital 97]."
+    },
+    {
+      "id": "s03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 2(10)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.69,
+      "latency_ms": 61267,
+      "input_tokens": 1000,
+      "output_tokens": 33,
+      "cost_usd": 0.0,
+      "answer": "No, the deployer obligations do not apply to someone using an AI tool for a purely personal, non-professional activity [Article 2(10)]."
+    },
+    {
+      "id": "s04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 54(1)",
+        "Article 22(1)"
+      ],
+      "gold_hit": false,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 4.97,
+      "latency_ms": 96257,
+      "input_tokens": 1520,
+      "output_tokens": 57,
+      "cost_usd": 0.0,
+      "answer": "Yes, the AI Act applies to a provider established outside the European Union if they place a general-purpose AI model on the Union market [Article 54(1)]; or if their high-risk AI system is made available on the Union market [Article 22(1)]."
+    },
+    {
+      "id": "s05",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 2(12)",
+        "Article 54(6)",
+        "Article 53(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.65,
+      "latency_ms": 84654,
+      "input_tokens": 1222,
+      "output_tokens": 106,
+      "cost_usd": 0.0,
+      "answer": "No, AI systems released under free and open-source licences are not entirely exempt from the AI Act. They are exempt from certain obligations if they are not placed on the market or put into service as high-risk AI systems or if they do not fall under Article 5 or 50. However, providers of general-purpose AI models released under such licences must still comply with certain obligations unless the models present systemic risks. [Article 2(12); Article 54(6); Article 53(2)]"
+    },
+    {
+      "id": "h01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 6(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [
+        "Article 6(1)"
+      ],
+      "repaired": true,
+      "top_score": 7.82,
+      "latency_ms": 67039,
+      "input_tokens": 1907,
+      "output_tokens": 73,
+      "cost_usd": 0.0,
+      "answer": "An AI system is classified as high-risk if it is referred to in Annex III. [Article 6(2)]"
+    },
+    {
+      "id": "h02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 6(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 10.05,
+      "latency_ms": 66631,
+      "input_tokens": 1083,
+      "output_tokens": 56,
+      "cost_usd": 0.0,
+      "answer": "Yes, an AI system listed in Annex III can be considered not high-risk if it does not pose a significant risk of harm to health, safety, or fundamental rights of natural persons, including by not materially influencing the outcome of decision-making. [Article 6(3)]"
+    },
+    {
+      "id": "h03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Annex III"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.27,
+      "latency_ms": 83624,
+      "input_tokens": 1308,
+      "output_tokens": 52,
+      "cost_usd": 0.0,
+      "answer": "Annex III lists high-risk use cases in the following areas: \n1. Biometrics;\n2. Critical infrastructure;\n3. Education and vocational training;\n4. Employment, workers’ management, and access to self-employment. [Annex III]"
+    },
+    {
+      "id": "h04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Annex III",
+        "Article 6(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 6.84,
+      "latency_ms": 14678,
+      "input_tokens": 1559,
+      "output_tokens": 32,
+      "cost_usd": 0.0,
+      "answer": "Yes, an AI system used to evaluate people's creditworthiness is considered high-risk [Annex III(a); Article 6(3)(b)]."
+    },
+    {
+      "id": "h05",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Annex III"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 5.13,
+      "latency_ms": 72914,
+      "input_tokens": 1711,
+      "output_tokens": 11,
+      "cost_usd": 0.0,
+      "answer": "Yes, according to [Annex III(a)]."
+    },
+    {
+      "id": "h06",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 10(3)",
+        "Article 10(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.04,
+      "latency_ms": 70148,
+      "input_tokens": 1007,
+      "output_tokens": 107,
+      "cost_usd": 0.0,
+      "answer": "The training, validation, and testing data of high-risk AI systems must be relevant, sufficiently representative, and free of errors and complete in view of the intended purpose. They should have appropriate statistical properties and be subject to data governance and management practices appropriate for the intended purpose. These practices include design choices, data collection processes, data preparation operations, formulation of assumptions, assessment of data availability, and examination for biases that could affect health and safety or fundamental rights. [Article 10(3); Article 10(2)]"
+    },
+    {
+      "id": "h07",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 12(1)",
+        "Article 12(3)",
+        "Article 12(2)",
+        "Article 19(1)",
+        "Article 26(6)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.85,
+      "latency_ms": 78427,
+      "input_tokens": 1021,
+      "output_tokens": 127,
+      "cost_usd": 0.0,
+      "answer": "High-risk AI systems must technically allow for the automatic recording of events (logs) over the lifetime of the system [Article 12(1)]. These logs must include the period of each use, the reference database, input data for matches, and the identification of persons involved in result verification [Article 12(3)]. They should also enable recording of events relevant for identifying risky situations, facilitating post-market monitoring, and monitoring system operation [Article 12(2)]. Logs must be kept for at least six months, unless otherwise required by law [Article 19(1); Article 26(6)]."
+    },
+    {
+      "id": "h08",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 14(1)",
+        "Article 14(3)",
+        "Article 14(5)",
+        "Article 14(4)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.52,
+      "latency_ms": 89676,
+      "input_tokens": 1123,
+      "output_tokens": 149,
+      "cost_usd": 0.0,
+      "answer": "The AI Act requires high-risk AI systems to be designed and developed in a way that allows for effective human oversight during use [Article 14(1)]. Oversight measures must be commensurate with the risks, level of autonomy, and context of use, and can be implemented either by the provider or the deployer [Article 14(3)]. For certain high-risk AI systems, no action or decision based on the system's identification can be taken by the deployer unless verified by at least two competent natural persons [Article 14(5)]. Additionally, natural persons assigned human oversight should be able to understand the system's capabilities and limitations, monitor its operation, and intervene as necessary [Article 14(4)]."
+    },
+    {
+      "id": "h09",
+      "answerable": true,
+      "refused": true,
+      "refusal_reason": "model",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 1.64,
+      "latency_ms": 96821,
+      "input_tokens": 1682,
+      "output_tokens": 7,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "h10",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 17(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.13,
+      "latency_ms": 74809,
+      "input_tokens": 1240,
+      "output_tokens": 31,
+      "cost_usd": 0.0,
+      "answer": "Yes, providers of high-risk AI systems shall put a quality management system in place that ensures compliance with this Regulation [Article 17(1)]."
+    },
+    {
+      "id": "h11",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 22(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.15,
+      "latency_ms": 66486,
+      "input_tokens": 1165,
+      "output_tokens": 38,
+      "cost_usd": 0.0,
+      "answer": "Before making a high-risk AI system available on the Union market, a provider established in a third country must appoint an authorised representative established in the Union [Article 22(1)]."
+    },
+    {
+      "id": "h12",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 25(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 6.4,
+      "latency_ms": 91521,
+      "input_tokens": 1223,
+      "output_tokens": 144,
+      "cost_usd": 0.0,
+      "answer": "A distributor, importer, or deployer becomes the provider of a high-risk AI system if they put their name or trademark on a high-risk AI system already placed on the market or put into service [Article 25(1)(a)]; if they make a substantial modification to a high-risk AI system that remains a high-risk AI system [Article 25(1)(b)]; or if they modify the intended purpose of an AI system, including a general-purpose AI system, which has not been classified as high-risk and has already been placed on the market or put into service, in such a way that the AI system concerned becomes a high-risk AI system [Article 25(1)(c)]."
+    },
+    {
+      "id": "h13",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 43(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.22,
+      "latency_ms": 102237,
+      "input_tokens": 1563,
+      "output_tokens": 59,
+      "cost_usd": 0.0,
+      "answer": "No, for high-risk AI systems referred to in points 2 to 8 of Annex III, providers shall follow the conformity assessment procedure based on internal control as referred to in Annex VI, which does not provide for the involvement of a notified body. [Article 43(2)]"
+    },
+    {
+      "id": "h14",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 43(4)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.67,
+      "latency_ms": 63392,
+      "input_tokens": 1051,
+      "output_tokens": 25,
+      "cost_usd": 0.0,
+      "answer": "Yes, a high-risk AI system needs a new conformity assessment after a substantial modification [Article 43(4)]."
+    },
+    {
+      "id": "h15",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 48(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.19,
+      "latency_ms": 56045,
+      "input_tokens": 874,
+      "output_tokens": 55,
+      "cost_usd": 0.0,
+      "answer": "For high-risk AI systems provided only digitally, a digital CE marking shall be used, only if it can easily be accessed via the interface from which that system is accessed or via an easily accessible machine-readable code or other electronic means. [Article 48(2)]"
+    },
+    {
+      "id": "h16",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 49(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.95,
+      "latency_ms": 65139,
+      "input_tokens": 988,
+      "output_tokens": 49,
+      "cost_usd": 0.0,
+      "answer": "Yes, providers or their authorised representatives must register high-risk AI systems in the EU database before placing them on the market or putting them into service, except for those listed in point 2 of Annex III [Article 49(1)]."
+    },
+    {
+      "id": "dp01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 26(6)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.74,
+      "latency_ms": 73212,
+      "input_tokens": 1036,
+      "output_tokens": 68,
+      "cost_usd": 0.0,
+      "answer": "Deployers of high-risk AI systems must keep the logs automatically generated by such systems for a period appropriate to the intended purpose of the high-risk AI system, of at least six months, unless provided otherwise by applicable Union or national law, in particular in Union law on the protection of personal data. [Article 26(6)]"
+    },
+    {
+      "id": "dp02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 26(7)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.0,
+      "latency_ms": 85470,
+      "input_tokens": 1358,
+      "output_tokens": 32,
+      "cost_usd": 0.0,
+      "answer": "Yes, an employer must inform workers' representatives and the affected workers before using a high-risk AI system at the workplace [Article 26(7)]."
+    },
+    {
+      "id": "dp03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 27(3)",
+        "Recital 96"
+      ],
+      "gold_hit": false,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.21,
+      "latency_ms": 85346,
+      "input_tokens": 1253,
+      "output_tokens": 79,
+      "cost_usd": 0.0,
+      "answer": "Deployers of high-risk AI systems that are bodies governed by public law, or private entities providing public services, as well as certain high-risk AI systems listed in an annex to the Regulation, such as banking or insurance entities, must carry out a fundamental rights impact assessment prior to putting the high-risk AI system into use. [Article 27(3); Recital 96]"
+    },
+    {
+      "id": "dp04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 86(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.94,
+      "latency_ms": 101745,
+      "input_tokens": 1692,
+      "output_tokens": 37,
+      "cost_usd": 0.0,
+      "answer": "Yes, a person affected by a decision based on a high-risk AI system has the right to obtain clear and meaningful explanations from the deployer [Article 86(1)]."
+    },
+    {
+      "id": "t01",
+      "answerable": true,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -2.08,
+      "latency_ms": 5432,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "t02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 50(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 3.79,
+      "latency_ms": 135061,
+      "input_tokens": 1838,
+      "output_tokens": 55,
+      "cost_usd": 0.0,
+      "answer": "Providers of AI systems, including general-purpose AI systems, generating synthetic audio, image, video or text content must ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated. [Article 50(2)]"
+    },
+    {
+      "id": "t03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 50(4)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.94,
+      "latency_ms": 102711,
+      "input_tokens": 1490,
+      "output_tokens": 110,
+      "cost_usd": 0.0,
+      "answer": "Deployers of an AI system that generates or manipulates image, audio or video content constituting a deep fake must disclose that the content has been artificially generated or manipulated, except where the use is authorised by law to detect, prevent, investigate or prosecute criminal offences [Article 50(4)]. Deployers of an AI system that generates or manipulates text published with the purpose of informing the public on matters of public interest must also disclose that the text has been artificially generated or manipulated, with similar exceptions [Article 50(4)]."
+    },
+    {
+      "id": "g01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 53(1)",
+        "Article 53(3)",
+        "Article 55(1)",
+        "Article 53(4)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 10.21,
+      "latency_ms": 101265,
+      "input_tokens": 1301,
+      "output_tokens": 178,
+      "cost_usd": 0.0,
+      "answer": "Providers of general-purpose AI models must draw up and keep up-to-date technical documentation, including training and testing processes and evaluation results [Article 53(1)(a)]; provide information and documentation to providers of AI systems integrating their models [Article 53(1)(b)]; implement a policy to comply with Union law on copyright [Article 53(1)(c)]; and make publicly available a summary about the content used for training [Article 53(1)(d)]. They must also cooperate with the Commission and national competent authorities [Article 53(3)]. Providers of general-purpose AI models with systemic risk must additionally perform model evaluation, assess and mitigate systemic risks, report serious incidents, and ensure adequate cybersecurity [Article 55(1)]. Providers may rely on codes of practice or demonstrate alternative adequate means of compliance [Article 53(4)]."
+    },
+    {
+      "id": "g02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 51(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.95,
+      "latency_ms": 91810,
+      "input_tokens": 1605,
+      "output_tokens": 46,
+      "cost_usd": 0.0,
+      "answer": "A general-purpose AI model is presumed to have high-impact capabilities when the cumulative amount of computation used for its training measured in floating point operations is greater than 10^25 [Article 51(2)]."
+    },
+    {
+      "id": "g03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 55(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.52,
+      "latency_ms": 59177,
+      "input_tokens": 1108,
+      "output_tokens": 39,
+      "cost_usd": 0.0,
+      "answer": "Providers of general-purpose AI models with systemic risk must perform model evaluation, assess and mitigate systemic risks, report serious incidents, and ensure adequate cybersecurity protection. [Article 55(1)]"
+    },
+    {
+      "id": "g04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 52(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 5.54,
+      "latency_ms": 78707,
+      "input_tokens": 1452,
+      "output_tokens": 33,
+      "cost_usd": 0.0,
+      "answer": "Without delay and in any event within two weeks after that requirement is met or it becomes known that it will be met. [Article 52(1)]"
+    },
+    {
+      "id": "g05",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 53(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.03,
+      "latency_ms": 77794,
+      "input_tokens": 1308,
+      "output_tokens": 61,
+      "cost_usd": 0.0,
+      "answer": "Yes, open-source general-purpose AI models are exempt from the technical documentation obligations set out in Article 53(1)(a) if they are released under a free and open-source licence and their parameters are made publicly available, unless they present systemic risks. [Article 53(2)]"
+    },
+    {
+      "id": "g06",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 101(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.35,
+      "latency_ms": 47116,
+      "input_tokens": 882,
+      "output_tokens": 52,
+      "cost_usd": 0.0,
+      "answer": "The Commission may impose a fine not exceeding 3 % of the provider's annual total worldwide turnover in the preceding financial year or EUR 15,000,000, whichever is higher. [Article 101(1)]"
+    },
+    {
+      "id": "e01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 99(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.29,
+      "latency_ms": 68186,
+      "input_tokens": 1169,
+      "output_tokens": 63,
+      "cost_usd": 0.0,
+      "answer": "The maximum fine for using a prohibited AI practice is up to EUR 35 000 000 or, if the offender is an undertaking, up to 7 % of its total worldwide annual turnover for the preceding financial year, whichever is higher. [Article 99(3)]"
+    },
+    {
+      "id": "e02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 99(5)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.71,
+      "latency_ms": 76409,
+      "input_tokens": 1252,
+      "output_tokens": 80,
+      "cost_usd": 0.0,
+      "answer": "The supply of incorrect, incomplete or misleading information to notified bodies or national competent authorities in reply to a request shall be subject to administrative fines of up to EUR 7 500 000 or, if the offender is an undertaking, up to 1 % of its total worldwide annual turnover for the preceding financial year, whichever is higher. [Article 99(5)]"
+    },
+    {
+      "id": "e03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Recital 168"
+      ],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 5.32,
+      "latency_ms": 58648,
+      "input_tokens": 1004,
+      "output_tokens": 65,
+      "cost_usd": 0.0,
+      "answer": "Administrative fines for SMEs, including start-ups, should take into account the size of the provider, in particular if the provider is an SME, including a start-up, when assessing the amount of the fines [Recital 168]. However, the specific calculation method is not detailed in the sources provided."
+    },
+    {
+      "id": "e04",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 73(4)",
+        "Article 73(2)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 6.35,
+      "latency_ms": 65199,
+      "input_tokens": 1050,
+      "output_tokens": 89,
+      "cost_usd": 0.0,
+      "answer": "The provider or deployer shall report the serious incident immediately after establishing a causal relationship with the high-risk AI system, but not later than 10 days after becoming aware of the serious incident. [Article 73(4)] In any event, the report shall be made not later than 15 days after becoming aware of the serious incident, taking into account the severity of the incident. [Article 73(2)]"
+    },
+    {
+      "id": "e05",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 73(4)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 7.17,
+      "latency_ms": 46723,
+      "input_tokens": 1034,
+      "output_tokens": 76,
+      "cost_usd": 0.0,
+      "answer": "The report shall be provided immediately after the provider or the deployer has established, or as soon as it suspects, a causal relationship between the high-risk AI system and the serious incident, but not later than 10 days after the date on which the provider or, where applicable, the deployer becomes aware of the serious incident. [Article 73(4)]"
+    },
+    {
+      "id": "e06",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 57(1)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 8.9,
+      "latency_ms": 55809,
+      "input_tokens": 1088,
+      "output_tokens": 29,
+      "cost_usd": 0.0,
+      "answer": "By 2 August 2026, each Member State must have an AI regulatory sandbox operational [Article 57(1)]."
+    },
+    {
+      "id": "tl01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 113"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 6.71,
+      "latency_ms": 8402,
+      "input_tokens": 1660,
+      "output_tokens": 26,
+      "cost_usd": 0.0,
+      "answer": "The prohibitions on AI practices apply from 2 February 2025. [Article 113(a)]"
+    },
+    {
+      "id": "tl02",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 113"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 5.66,
+      "latency_ms": 56453,
+      "input_tokens": 1303,
+      "output_tokens": 25,
+      "cost_usd": 0.0,
+      "answer": "The AI Act generally starts to apply from 2 August 2026. [Article 113]"
+    },
+    {
+      "id": "tl03",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 111(3)"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 9.97,
+      "latency_ms": 67710,
+      "input_tokens": 1190,
+      "output_tokens": 59,
+      "cost_usd": 0.0,
+      "answer": "Providers of general-purpose AI models that have been placed on the market before 2 August 2025 shall take the necessary steps in order to comply with the obligations laid down in this Regulation by 2 August 2027. [Article 111(3)]"
+    },
+    {
+      "id": "l01",
+      "answerable": true,
+      "refused": false,
+      "refusal_reason": null,
+      "citations": [
+        "Article 4",
+        "Article 95(2)",
+        "Article 66"
+      ],
+      "gold_hit": true,
+      "cites_article": true,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 4.04,
+      "latency_ms": 101361,
+      "input_tokens": 1479,
+      "output_tokens": 115,
+      "cost_usd": 0.0,
+      "answer": "Companies are required to take measures to ensure a sufficient level of AI literacy among their staff and other persons dealing with the operation and use of AI systems, considering their technical knowledge, experience, education and training, and the context in which the AI systems are used. [Article 4] Additionally, codes of conduct should promote AI literacy, particularly for persons involved in the development, operation, and use of AI systems. [Article 95(2)(c)] The European Artificial Intelligence Board should support the Commission in promoting AI literacy. [Article 66(f)]"
+    },
+    {
+      "id": "u01",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -10.92,
+      "latency_ms": 2471,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u02",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -0.91,
+      "latency_ms": 2873,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u03",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 1.11,
+      "latency_ms": 3079,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u04",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "model",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": 6.29,
+      "latency_ms": 45710,
+      "input_tokens": 976,
+      "output_tokens": 7,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u05",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -10.35,
+      "latency_ms": 2804,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u06",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -0.67,
+      "latency_ms": 2697,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u07",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -11.05,
+      "latency_ms": 2707,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    },
+    {
+      "id": "u08",
+      "answerable": false,
+      "refused": true,
+      "refusal_reason": "low_evidence",
+      "citations": [],
+      "gold_hit": false,
+      "cites_article": false,
+      "invalid": [],
+      "repaired": false,
+      "top_score": -4.34,
+      "latency_ms": 2617,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "answer": "I can't answer that from the EU AI Act: the provisions I found don't address it. Try rephrasing, or ask about a specific obligation, role or article."
+    }
+  ]
+}
