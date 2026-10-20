@@ -2,13 +2,15 @@
 
 - article:   one provision per chunk (paragraphs packed up to max_tokens), with an "Article N - title" header.
 - paragraph: one citable unit per chunk, with the same header so the embedding knows where it sits.
-- fixed:     naive baseline - fixed token windows over the concatenated text, no headers; citations are
+             Both structured strategies also spell out chapter cross-references (expand_chapter_refs).
+- fixed:    naive baseline - fixed token windows over the concatenated text, no headers; citations are
              recovered afterwards from character-offset overlap with the citable units.
 
 Every chunk carries the citation units it contains, which is what retrieval is scored on.
 """
 
 import json
+import re
 from collections.abc import Iterable
 from dataclasses import dataclass
 from functools import cache
@@ -52,6 +54,23 @@ def header(prov: dict) -> str:
     return h + (f" ({'; '.join(ctx)})" if ctx else "")
 
 
+_CHAPTER_REF = re.compile(r"\bChapters? ([IVX]+(?:(?:,| and| or) [IVX]+)*)\b")
+
+
+def expand_chapter_refs(text: str, titles: dict[str, str]) -> str:
+    """'Chapters I and II shall apply' -> 'Chapters I (GENERAL PROVISIONS) and II (PROHIBITED AI PRACTICES)
+    shall apply'. Operative articles refer to chapters by number, which no embedder or BM25 can connect to a
+    question about "prohibitions"; the titles put the searchable words into the chunk. Citations are unchanged."""
+
+    def numerals(m: re.Match) -> str:
+        expanded = re.sub(
+            r"\b([IVX]+)\b", lambda n: f"{n[1]} ({titles[n[1]]})" if n[1] in titles else n[1], m.group(1)
+        )
+        return m.group(0).replace(m.group(1), expanded)
+
+    return _CHAPTER_REF.sub(numerals, text)
+
+
 def _split_long(text: str, budget: int) -> list[str]:
     """Split text that exceeds the token budget on line boundaries; hard-split single over-long lines."""
     pieces, cur = [], []
@@ -73,6 +92,8 @@ def _split_long(text: str, budget: int) -> list[str]:
 
 
 def _structured(provisions: Iterable[dict], max_tokens: int, pack: bool) -> list[Chunk]:
+    provisions = list(provisions)
+    titles = {p["chapter"]: p["chapter_title"] for p in provisions if p.get("chapter")}
     chunks: list[Chunk] = []
     for prov in provisions:
         head = header(prov)
@@ -80,7 +101,7 @@ def _structured(provisions: Iterable[dict], max_tokens: int, pack: bool) -> list
         # groups of (text, citations): one per unit, or packed consecutive units when pack=True
         groups: list[tuple[str, list[str]]] = []
         for para in prov["paragraphs"]:
-            for piece in _split_long(para["text"], budget):
+            for piece in _split_long(expand_chapter_refs(para["text"], titles), budget):
                 last = groups[-1] if groups else None
                 if pack and last and n_tokens(last[0] + "\n" + piece) <= budget:
                     groups[-1] = (last[0] + "\n" + piece, last[1] + [para["citation"]])

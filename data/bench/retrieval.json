@@ -373,7 +373,7 @@
     {
       "chunking": "article",
       "embedder": "bge-small",
-      "threshold": 1.7830088138580322,
+      "threshold": 1.7514190673828125,
       "answer_rate": 0.9272727272727272,
       "refusal_rate": 0.875,
       "balanced_acc": 0.9011363636363636,
@@ -446,7 +446,7 @@
     {
       "chunking": "paragraph",
       "embedder": "bge-small",
-      "threshold": 2.357243061065674,
+      "threshold": 2.0385361909866333,
       "answer_rate": 0.9636363636363636,
       "refusal_rate": 0.875,
       "balanced_acc": 0.9193181818181818,
@@ -519,7 +519,7 @@
     {
       "chunking": "fixed",
       "embedder": "bge-small",
-      "threshold": 2.2306196689605713,
+      "threshold": 2.1123083233833313,
       "answer_rate": 0.8909090909090909,
       "refusal_rate": 0.875,
       "balanced_acc": 0.8829545454545454,
@@ -592,7 +592,7 @@
     {
       "chunking": "article",
       "embedder": "bge-base",
-      "threshold": 1.7830088138580322,
+      "threshold": 1.7514190673828125,
       "answer_rate": 0.9272727272727272,
       "refusal_rate": 0.875,
       "balanced_acc": 0.9011363636363636,
@@ -665,7 +665,7 @@
     {
       "chunking": "paragraph",
       "embedder": "bge-base",
-      "threshold": 2.357243061065674,
+      "threshold": 2.0385361909866333,
       "answer_rate": 0.9636363636363636,
       "refusal_rate": 0.875,
       "balanced_acc": 0.9193181818181818,
@@ -738,7 +738,7 @@
     {
       "chunking": "fixed",
       "embedder": "bge-base",
-      "threshold": 2.2306196689605713,
+      "threshold": 2.1123083233833313,
       "answer_rate": 0.8909090909090909,
       "refusal_rate": 0.875,
       "balanced_acc": 0.8829545454545454,

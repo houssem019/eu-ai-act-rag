@@ -118,7 +118,9 @@ def test_metrics():
 
 def test_choose_threshold_separates_and_prefers_answering():
     t = choose_threshold(pos=[5.0, 6.0, 1.0], neg=[-3.0, -1.0])
-    assert t["threshold"] == 1.0 and t["refusal_rate"] == 1.0 and t["answer_rate"] == 1.0
+    # mid-gap between the lowest answerable score (1.0) and the highest unanswerable one (-1.0)
+    assert t["threshold"] == 0.0
+    assert t["refusal_rate"] == 1.0 and t["answer_rate"] == 1.0
 
 
 def test_gate_flags_drops_and_missing_configs():

@@ -1,5 +1,5 @@
 {
-  "_comment": "Minimums for the production retrieval config, checked in CI by `python -m aiact.bench --gate`. Set ~1 question (0.02) below the measured values in data/bench/retrieval.md to absorb ONNX float differences between Windows and Linux. Raise them when retrieval improves.",
-  "paragraph/bge-small/rerank": {"recall@5": 0.87, "recall@10": 0.91, "mrr@10": 0.69},
-  "refusal/paragraph/bge-small": {"answer_rate": 0.94, "refusal_rate": 0.75}
+  "_comment": "Minimums for the production retrieval config (paragraph chunks with chapter cross-refs spelled out, bge-small, rerank, recital penalty 2), checked in CI by `python -m aiact.bench --gate`. Set ~1 question (0.02) below the measured values in data/bench/production_p2.md to absorb ONNX float differences between Windows and Linux. Raise them when retrieval improves.",
+  "paragraph/bge-small/rerank": {"recall@5": 0.93, "recall@10": 0.96, "mrr@10": 0.81},
+  "refusal/paragraph/bge-small": {"answer_rate": 0.96, "refusal_rate": 0.75}
 }

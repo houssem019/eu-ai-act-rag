@@ -25,9 +25,9 @@ Refusal threshold on the top rerank score (55 answerable vs 8 unanswerable quest
 
 | Chunking | Embedder | Threshold | Answer rate (answerable) | Refusal rate (unanswerable) |
 |---|---|---|---|---|
-| article | bge-small | 1.78 | 0.93 | 0.88 |
-| paragraph | bge-small | 2.36 | 0.96 | 0.88 |
-| fixed | bge-small | 2.23 | 0.89 | 0.88 |
-| article | bge-base | 1.78 | 0.93 | 0.88 |
-| paragraph | bge-base | 2.36 | 0.96 | 0.88 |
-| fixed | bge-base | 2.23 | 0.89 | 0.88 |
+| article | bge-small | 1.75 | 0.93 | 0.88 |
+| paragraph | bge-small | 2.04 | 0.96 | 0.88 |
+| fixed | bge-small | 2.11 | 0.89 | 0.88 |
+| article | bge-base | 1.75 | 0.93 | 0.88 |
+| paragraph | bge-base | 2.04 | 0.96 | 0.88 |
+| fixed | bge-base | 2.11 | 0.89 | 0.88 |

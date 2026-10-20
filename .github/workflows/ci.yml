@@ -28,6 +28,20 @@ jobs:
       - name: Tests (fake encoders and fake LLM, no models, no API key)
         run: uv run pytest -q
 
+      # Replays the recorded retrieval snapshot + LLM cassette: grades prompt building, citation checks and refusal
+      # logic for free. Fails below data/eval/answer_baseline.json, or on a cassette miss (prompt changed without
+      # re-recording).
+      - name: Answer eval regression gate
+        if: hashFiles('data/eval/answer_baseline.json') != ''
+        run: uv run python -m aiact.evals.answers --provider fake --gate data/eval/answer_baseline.json --out eval-results
+
+      - name: Upload answer eval report
+        if: always() && hashFiles('data/eval/answer_baseline.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: answer-eval
+          path: eval-results/
+
   # Real models on the committed corpus and eval set. Fails if the production retrieval config drops below
   # data/bench/baseline.json. The reranker dominates the runtime (~63 queries x a few seconds on CPU).
   retrieval-gate:
@@ -52,7 +66,7 @@ jobs:
 
       - name: Retrieval regression gate
         run: >-
-          uv run python -m aiact.bench --chunkings paragraph --embedders bge-small --modes rerank
+          uv run python -m aiact.bench --chunkings paragraph --embedders bge-small --modes rerank --recital-penalty 2
           --out bench-results/retrieval.json --gate data/bench/baseline.json
 
       - name: Upload retrieval report
@@ -61,3 +75,25 @@ jobs:
         with:
           name: retrieval-results
           path: bench-results/
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: aiact:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      # Off-topic question: full retrieval runs inside the container, then the low-evidence gate refuses before
+      # any LLM call - so this needs no model server or API key.
+      - name: Smoke test (baked models, offline refusal path)
+        run: |
+          docker run --rm --network none -e LLM_PROVIDER=ollama aiact:ci "What is the capital of France?" | tee out.txt
+          grep -q "refused (low_evidence)" out.txt

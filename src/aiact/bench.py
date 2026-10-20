@@ -42,18 +42,26 @@ def summarize(ranks: list[int | None], ks: tuple[int, ...] = (1, 5, 10)) -> dict
 
 
 def choose_threshold(pos: list[float], neg: list[float]) -> dict[str, float]:
-    """Refuse when the top rerank score < threshold. Pick the cut maximizing balanced accuracy;
-    ties go to the lower threshold (prefer answering over refusing)."""
+    """Refuse when the top rerank score < threshold. Pick the cut maximizing balanced accuracy (ties go to the
+    lower cut: prefer answering over refusing), then place it mid-gap between that score and the next lower one,
+    so it doesn't sit exactly on one question's score (max margin, less overfit to this small set)."""
     best = None
-    for t in sorted(set(pos + neg)):
+    scores = sorted(set(pos + neg))
+    for i, t in enumerate(scores):
         tpr = sum(s >= t for s in pos) / len(pos)  # answerable questions we still answer
         tnr = sum(s < t for s in neg) / len(neg)  # unanswerable questions we refuse
         if best is None or (tpr + tnr) / 2 > best["balanced_acc"]:
-            best = {"threshold": t, "answer_rate": tpr, "refusal_rate": tnr, "balanced_acc": (tpr + tnr) / 2}
+            cut = (t + scores[i - 1]) / 2 if i else t
+            best = {
+                "threshold": cut,
+                "answer_rate": tpr,
+                "refusal_rate": tnr,
+                "balanced_acc": (tpr + tnr) / 2,
+            }
     return best
 
 
-def run(chunkings, embedders, modes) -> dict:
+def run(chunkings, embedders, modes, recital_penalty: float = 0.0) -> dict:
     questions = load_questions()
     answerable = [q for q in questions if q["answerable"]]
     unanswerable = [q for q in questions if not q["answerable"]]
@@ -65,7 +73,7 @@ def run(chunkings, embedders, modes) -> dict:
         for strat in chunkings:
             chunks = chunk(strat, provisions)
             index = build_index(chunks, dense, sparse, f"{strat}_{emb}")
-            retr = Retriever(index, dense, sparse, reranker)
+            retr = Retriever(index, dense, sparse, reranker, recital_penalty=recital_penalty)
             retr.search("warm-up query", "rerank" if "rerank" in modes else modes[0])
             for mode in modes:
                 ranks, lat, ctx, top = [], [], [], {}
@@ -73,13 +81,14 @@ def run(chunkings, embedders, modes) -> dict:
                 # (reranking is the slow step, ~2-6 s/query on CPU, so never run it twice).
                 for q in questions:
                     res = retr.search(q["question"], mode, k=10)
-                    top[q["id"]] = res.hits[0].score
+                    top[q["id"]] = res.top_score
                     if not q["answerable"]:
                         continue
                     ranks.append(first_hit_rank(res.hits, set(q["gold"])))
                     lat.append(res.latency_ms)
                     ctx.append(sum(n_tokens(h.chunk.text) for h in res.hits[:5]))
-                row = {"chunking": strat, "embedder": emb, "mode": mode, **summarize(ranks)}
+                row = {"chunking": strat, "embedder": emb, "mode": mode, "recital_penalty": recital_penalty}
+                row |= summarize(ranks)
                 row |= {"ctx_tokens@5": statistics.mean(ctx), "p50_ms": statistics.median(lat)}
                 row["misses@10"] = [q["id"] for q, r in zip(answerable, ranks, strict=True) if r is None]
                 rows.append(row)
@@ -140,10 +149,13 @@ def main() -> None:
     p.add_argument("--chunkings", nargs="+", default=list(STRATEGIES), choices=STRATEGIES)
     p.add_argument("--embedders", nargs="+", default=list(DENSE_MODELS), choices=list(DENSE_MODELS))
     p.add_argument("--modes", nargs="+", default=list(MODES), choices=MODES)
+    p.add_argument(
+        "--recital-penalty", type=float, default=0.0, help="rerank-mode rank prior against recitals"
+    )
     p.add_argument("--out", type=Path, default=OUT_DIR / "retrieval.json")
     p.add_argument("--gate", type=Path, help="baseline JSON of minimum metrics; exit 1 if any is not met")
     args = p.parse_args()
-    result = run(args.chunkings, args.embedders, args.modes)
+    result = run(args.chunkings, args.embedders, args.modes, args.recital_penalty)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2), encoding="utf-8")
     args.out.with_suffix(".md").write_text(to_markdown(result), encoding="utf-8")
