@@ -37,3 +37,7 @@ data/cache/
 # CI / local eval report folders (committed results live in data/bench and data/eval/results)
 eval-results/
 bench-results/
+
+# Local notes (not published)
+CLAUDE.md
+docs/INTERVIEW.md
